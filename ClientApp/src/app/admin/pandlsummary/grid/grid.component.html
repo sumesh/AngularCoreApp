@@ -1,0 +1,185 @@
+<form [formGroup]="fbGridSearch">
+
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between center"
+    fxLayoutAlign.lt-sm="space-between stretch">
+    <div fxFlex="35">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+        <mat-form-field fxFlex="49">
+          <mat-select formControlName="ddlGridFilter" placeholder="Filter">
+            <mat-option value="{{r.id}}" *ngFor="let r of gridMaster.filtertype">{{ r.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <mat-select formControlName="ddlGridYear" placeholder="Year">
+            <mat-option value="{{r.id}}" *ngFor="let r of gridMaster.year">{{ r.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="pt20">
+      <mat-label>FX : </mat-label>
+      <mat-radio-group color="primary" formControlName="rdgfx">
+        <mat-radio-button value="{{r.id}}" *ngFor="let r of gridMaster.fx">{{ r.value }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+    <div class="pt20">
+
+      <mat-label>USD : </mat-label>
+      <mat-radio-group color="primary" formControlName="rdgCurrency">
+        <mat-radio-button value="{{r.id}}" *ngFor="let r of gridMaster.dol">{{ r.value }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+    <div class="pt20">
+      <button mat-icon-button color="primary" aria-label="Prev" (click)="prevPeriod()">
+        <mat-icon class="icon-lg">keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" aria-label="Next" (click)="nextPeriod()">
+        <mat-icon class="icon-lg">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>
+
+<button (click)="test(1)">Test 1</button>
+<button (click)="test(2)">Test 2</button>
+<button (click)="test(3)">Assign 3</button>
+{{  test1?.val}}  &nbsp; {{test2?.val}}
+
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <ng-container *ngFor="let row of gridMaster.header | callback:filtermonths; let i = index">
+          <th>
+            {{row.PeriodName}}
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let desc of gridMaster.desc; let i = index" [ngClass]="{subhead: desc.Type=='H'}">
+
+        <ng-container *ngIf="desc.Type=='H'">
+          <th>{{desc.Desc}}</th>
+          <ng-container *ngFor="let pr of gridMaster.header; let j = index">
+            <th *ngIf="pr.Show">
+              <span *ngIf="desc.Type=='H'"></span>
+            </th>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="desc.Type!='H'">
+          <td>{{desc.Desc}}</td>
+          <ng-container *ngFor="let pr of gridMaster.header | callback:filtermonths; let j = index">
+            <td  >
+              <span *ngIf="desc.Type!='H' && !gridloading && desc.Format=='$'"
+                title="{{getTableData(desc.DescID,pr.PeriodID,'Value') | currency}}">
+                {{getTableData(desc.DescID,pr.PeriodID,'Value') | currency}}</span>
+              <span *ngIf="desc.Type!='H' && !gridloading  && desc.Format=='%'"
+                title="{{getTableData(desc.DescID,pr.PeriodID,'Value') | percent:'1.2-6'}}">
+                {{getTableData(desc.DescID,pr.PeriodID,'Value') | percent:'1.2-2'}}</span>
+              <div class="tdloading" *ngIf="gridloading">&nbsp;</div>
+            </td>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>YTD 2021</th>
+        <th>Jan 2021</th>
+        <th>Feb 2021</th>
+        <th>Mar 2021</th>
+        <th>Apr 2021</th>
+        <th>May 2021</th>
+        <th>Jun 2021</th>
+        <th>FY 2021</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="subhead">
+        <th colspan="10">Forecast</th>
+      </tr>
+      <tr>
+        <td>Rev $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>Cost $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>CP %</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr class="subhead">
+        <th colspan="10">Adjustment</th>
+      </tr>
+      <tr>
+        <td>Rev $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>Cost $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>CP %</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

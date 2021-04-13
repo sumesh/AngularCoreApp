@@ -1,0 +1,27 @@
+<h4 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="task-header" color="primary">
+        <span>PPM Actual cs FTE</span>
+        <span class="fx-spacer"></span>
+        <button mat-icon-button [mat-dialog-close]="true">
+            <mat-icon mat-list-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+</h4>
+
+<div mat-dialog-content>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start">
+
+        <mat-form-field>
+            <mat-select [(value)]="costhead" placeholder="Select Cost">
+                <mat-option value="total">Total Cost</mat-option>
+                <mat-option value="Direct">Direct Cost</mat-option>
+                <mat-option value="Indirect">Indirect Cost</mat-option>
+                <mat-option value="uamcp">Ubilled CP</mat-option>
+                <mat-option value="dealp">deal Pursuit</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+    <mat-divider></mat-divider>
+    <app-grid></app-grid>
+</div>

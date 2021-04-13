@@ -1,0 +1,61 @@
+<!-- <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch">
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <app-stat [bgClass]="'danger'" [icon]="'bookmarks'" [count]="13" [label]="'New Tickets!'"></app-stat>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="12" [label]="'New Task!'"></app-stat>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <app-stat [bgClass]="'success'" [icon]="'shopping_cart'" [count]="124" [label]="'New Orders!'"></app-stat>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="13" [label]="'New Tickets!'"></app-stat>
+  </div>
+</div>
+-->
+<div class="mt20" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayout.lt-md="column" fxLayoutGap="20px" >
+  <mat-card fxFlex="24" fxFlex.lt-lg="49" *ngFor="let item of places"> 
+    <mat-card-header style="justify-content: center">
+      <mat-card-title>
+        <h3 class="m-0">{{item.name}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      {{item.description}}
+    </mat-card-content> 
+  </mat-card>
+</div> 
+
+ 
+
+<div class="mt20" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" class="uplf-card mt10">
+  <ng-container  *ngFor="let item of places; let i = index">
+  <mat-card fxFlex="20" fxFlex.lt-md="49"  class="mb10"  >
+    <mat-card-header class="uplfcard-head">
+      <mat-card-title class="header">
+        <h3 class="m-0">{{item.name}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <table style="width: 100%;">
+        <tr>
+          <td>Rev $</td>
+          <td class="text-right">1234567890.23</td>
+        </tr>
+        <tr>
+          <td>Cost $</td>
+          <td class="text-right">1234567890.23</td>
+        </tr>
+        <tr>
+          <td>CP %</td>
+          <td class="text-right">15.23</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+</div> 
+
+<app-gridbasic></app-gridbasic>
+<!-- <app-grid></app-grid> -->

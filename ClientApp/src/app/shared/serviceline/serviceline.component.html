@@ -1,0 +1,12 @@
+<mat-form-field>
+    <mat-label>Serviceline</mat-label>
+    <mat-select [(value)]="servicelineID" placeholder="Serviceline" (selectionChange)="ddlChangeEvent()" *ngIf="!isMultple">
+        <mat-option value="0" *ngIf="all">All</mat-option>
+        <mat-option *ngFor="let r of servicelines" value="{{r.horzid}}">{{r.HorzName}}</mat-option>
+    </mat-select>
+    <mat-select [(value)]="servicelineIDs" placeholder="Serviceline" (selectionChange)="ddlChangeEventMulti()" *ngIf="isMultple" multiple>
+        <mat-option #allSelected (click)="toggleAllSelection()" value="0" *ngIf="all">All</mat-option>
+		<mat-option value="{{r.horzid}}" *ngFor="let r of servicelines">{{ r.HorzName }}
+		</mat-option>
+    </mat-select>
+</mat-form-field>

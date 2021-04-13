@@ -1,0 +1,30 @@
+<div class="login-page">
+  <div class="content px20">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="text-center">
+        <h2 class="app-name">Admin</h2>
+      </div>
+      <div fxLayout="row">
+        <div fxFlexFill>
+          <mat-form-field class="w-100">
+            <mat-label>User ID</mat-label>
+            <input matInput placeholder="User ID"  formControlName="username">
+            <mat-error *ngIf="f.username.errors?.required">User ID Required</mat-error>
+            <mat-error
+              *ngIf="f.username.errors?.minlength  && (f.username.dirty || f.username.touched)">Minimum 6 Characters.</mat-error>
+          </mat-form-field> 
+        </div>
+      </div>
+      <div fxFlexFill>
+        <strong>RHMS User</strong> - 147852<br />
+        <strong>Admin</strong> - 369852
+      </div>
+      <div fxLayout="row">
+        <div fxFlexFill>
+          <button type="submit" mat-raised-button color="primary" class="w-100">Login</button> 
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

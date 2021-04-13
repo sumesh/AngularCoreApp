@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Fontil Sans';
+    src: url('../assets/fonts/FontinSans/Fontin_Sans_R.otf') format('opentype');
+}
+
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Fontil Sans, Roboto',
+    $headline: mat-typography-level(32px, 48px, 700),
+    $body-1: mat-typography-level(14px, 18px, 400)
+);
+@include angular-material-typography($custom-typography); 

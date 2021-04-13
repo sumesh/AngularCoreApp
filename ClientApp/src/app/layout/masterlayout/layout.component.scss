@@ -1,0 +1,44 @@
+@import '~src/scss/variables';
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .sidenav-container {
+    flex: 1;
+    background: $main-background-color;
+    .sidenav {
+      padding: 12px;
+      width: 250px;
+      background: $primary-color;
+      color: $white;
+    }
+    .sidenavright
+    {
+      padding: 10px;
+      width: 250px;
+    }
+    
+    .main-container {
+      padding: 0 16px;
+    }
+  }
+}
+
+.revenue-coverage
+{
+  width: 100px;
+  .pgrs-text
+  {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 14px;
+  }
+  .mat-progress-bar
+  {
+    height: 15px;
+  }
+}

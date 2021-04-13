@@ -1,0 +1,33 @@
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between stretch">
+    <div fxFlex="49" fxFlex.gt-md="30">
+      <div fxLayout="row nowrap"    fxLayoutAlign="space-between stretch">
+        <mat-form-field fxFlex="49" >
+          <mat-select [(value)]="costhead" placeholder="Select Cost"> 
+            <mat-option value="total">Total Cost</mat-option>
+            <mat-option value="Direct">Direct Cost</mat-option>
+            <mat-option value="Indirect">Indirect Cost</mat-option>
+            <mat-option value="uamcp">Ubilled CP</mat-option>
+            <mat-option value="dealp">deal Pursuit</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <mat-select [(value)]="costtype" placeholder="Cost Type"> 
+            <mat-option value="all">All Cost</mat-option>
+            <mat-option value="C&B">C&B</mat-option>
+            <mat-option value="prof">Professional Service Cost</mat-option>
+          </mat-select>
+        </mat-form-field> 
+      </div>
+    </div>
+    <div fxFlex="49" fxFlex.gt-md="30"> 
+       <div fxLayout="row nowrap"  fxLayoutAlign="end">
+        <div fxFlex class="text-right">
+            <button mat-button (click)="openCODDialog()" color="primary">Cost Of Delivery </button> 
+        </div>
+
+       </div>
+    </div> 
+  </div>
+
+  <app-gridbasic></app-gridbasic>
+  <!-- <app-grid></app-grid> -->

@@ -1,0 +1,57 @@
+<div fxLayout="row nowrap" fxLayout.lt-sm="row nowrap" fxLayoutAlign="space-between stretch">
+  <div fxFlex="49" class="page-subhead">
+   P&L Summary  
+  </div>
+</div>
+
+<div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+  <div fxFlex="49" fxFlex.gt-md="30">
+    <div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between stretch">
+      <mat-form-field fxFlex="49" >
+        <mat-select [(value)]="bucketTypeID" (selectionChange)="onddlBucketTypeChanged($event.value)">
+          <mat-option value="{{r.id}}" *ngFor="let r of bucketlist">{{ r.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-serviceline [servicelineID]="servicelineid" [isMultple]="false" fxFlex="49"
+        (servicelineChanges)="onServicelineChanged($event)"></app-serviceline>
+    </div>
+  </div>
+  <div fxFlex>
+    <div fxLayout="row nowrap" fxLayoutAlign="end">
+      <button mat-button color="primary" [routerLink]="['allaccounts']">View All Accounts(25)</button>
+      <button mat-button color="primary" [routerLink]="['pnlworkbook']">Workbook</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+  <div fxFlex class="pt10">
+    Summary Overview 
+  </div> 
+</div>
+
+
+<app-stat [summary]="summarylist"></app-stat>
+
+
+
+<div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+  <div fxFlex class="pt10">
+    Backlog Guidance
+  </div>
+  <div fxFlex>
+    <div fxLayout="row nowrap" fxLayoutAlign="end" class="viewlink pt10">
+      <!-- <span class="material-icons">download</span>   -->
+      <button mat-button color="primary">Download Excel</button>
+
+    </div>
+  </div>
+</div>
+
+<app-grid-basic [gridinput]="gridinput" #gridcomponent></app-grid-basic>
+<!-- <app-grid></app-grid> -->

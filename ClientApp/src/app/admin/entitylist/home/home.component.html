@@ -1,0 +1,55 @@
+<div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+  <div fxFlex class="pt10 pl20"  > 
+    <mat-checkbox color="primary"></mat-checkbox> 
+ 
+  </div>
+   <div fxFlex >
+     <div fxLayout="row nowrap" fxLayoutAlign="end">
+      <button mat-button><span class="notcommitted">&nbsp;</span>Not Committed</button>
+      <button mat-button><span class="committed">&nbsp;</span> Committed</button>
+      <button mat-button><span class="rework">&nbsp;</span> Rework</button>
+     </div>
+   </div>
+ </div>
+
+ <mat-accordion class="account-headers-align" multi>
+  <mat-expansion-panel *ngFor="let entityobj of summarylist">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-checkbox color="primary" 
+        (click)="$event.stopPropagation()" 
+        (keydown)="$event.stopPropagation()"> 
+        </mat-checkbox>
+        <span class="ml20">
+       {{entityobj.entityid}}/ {{entityobj.entityname}}
+       <br/>
+       RC:{{entityobj.revenuecoverage}}%
+      </span>
+      </mat-panel-title>
+      <mat-panel-description> 
+        <mat-icon *ngIf="entityobj.notification" color="accent">warning_amber</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div fxLayout="row nowrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+      <div fxFlex>
+        <div fxLayout="row nowrap" fxLayoutAlign="start" fxLayoutGap="1%">
+          <button mat-button color="primary"> Acc. Details</button>
+          <button mat-button color="primary"> Email</button>
+          <button mat-button color="primary"> Chat</button>
+        </div>
+      </div>
+       <div fxFlex >
+         <div fxLayout="row nowrap" fxLayoutAlign="end"  >
+           <button mat-button color="primary" [routerLink]="['acntworkbook']">Workbook</button> 
+          
+         </div>
+       </div>
+     </div>
+
+     
+     <app-grid></app-grid>
+
+  </mat-expansion-panel>
+   
+</mat-accordion>

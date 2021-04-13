@@ -1,0 +1,107 @@
+<div class="layout-container">
+  <app-top-nav (sideNavToggled)="snav.toggle();snavright.close()"
+    (rightsideNavToggled)="snav.close();snavright.toggle()"></app-top-nav>
+
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="toolBarHeight">
+    <mat-sidenav #snav class="sidenav mat-elevation-z10" [mode]="sideNavMode" [(opened)]="sideNavOpened"
+      (click)="snav.toggle()" color="primary">
+      <app-side-nav></app-side-nav>
+    </mat-sidenav>
+    <mat-sidenav #snavright class="mat-elevation-z10" [mode]="sideNavMode" [(opened)]="rightsideNavOpened"
+      position="end" color="primary">
+      <div fxLayout="column nowrap" class="sidenavright" fxLayoutAlign="space-between stretch">
+        <!-- <mat-accordion displayMode="flat">
+          <mat-expansion-panel hideToggle *ngFor="let r of roles" (opened)="setRole(r)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+               {{r.rolename}}
+              </mat-panel-title>
+              <mat-panel-description> 
+                <mat-checkbox color="primary" > 
+                </mat-checkbox>
+              </mat-panel-description>
+      
+            </mat-expansion-panel-header>
+            <mat-form-field fxFlex="100">
+            <mat-select     placeholder="Serviceline">
+              <mat-option value="0">All Serviceline</mat-option>
+              <mat-option value="85">ADM</mat-option>
+              <mat-option value="8">QEA</mat-option>
+              <mat-option value="25">CIS</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </mat-expansion-panel>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Self aware panel 2
+              </mat-panel-title>
+              <mat-panel-description> 
+                <mat-checkbox color="primary" > 
+                </mat-checkbox>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field fxFlex="100">
+              <mat-select     placeholder="Serviceline">
+                <mat-option value="0">All Serviceline</mat-option>
+                <mat-option value="85">ADM</mat-option>
+                <mat-option value="8">QEA</mat-option>
+                <mat-option value="25">CIS</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-expansion-panel>
+        </mat-accordion> -->
+        <mat-form-field fxFlex="100">
+          <mat-select [(value)]="roleid" placeholder="Role" (selectionChange)="ddlChangeEvenet()">
+            <mat-option *ngFor="let r of roles" value="{{r.roleid}}">{{r.rolename}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field fxFlex="100" >
+          <mat-select [(value)]="roleservicelineval" placeholder="Serviceline">
+            <mat-option value="0">All Serviceline</mat-option>
+            <mat-option value="85">ADM</mat-option>
+            <mat-option value="8">QEA</mat-option>
+            <mat-option value="25">CIS</mat-option>
+          </mat-select>
+        </mat-form-field>  -->
+          <app-serviceline fxFlex="100" *ngIf="selectedRole?.roletype=='HZ'" ></app-serviceline>
+        
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <main class="main-container">
+        <app-breadcrumb></app-breadcrumb>
+        <div fxLayout="row nowrap" fxLayout.lt-sm="row nowrap" fxLayoutAlign="space-between stretch">
+          <div fxFlex="49" fxFlex.gt-md="30">
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between stretch">
+              <mat-form-field fxFlex="35">
+                <mat-label>Serviceline</mat-label>
+                <mat-select [(value)]="searchfilterval">
+                  <mat-option value="All">All</mat-option>
+                  <mat-option value="Account">Account</mat-option>
+                  <mat-option value="Project">Project</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field fxFlex="65">
+                <input matInput placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxFlex="49" fxFlex.gt-md="30">
+            <div fxLayout="row nowrap" fxLayoutAlign="end">
+              <div class="revenue-coverage">
+                <div class="pgrs-text">RC - 40%</div>
+                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+              </div> 
+            </div>
+          </div>
+ 
+        </div>
+        <mat-divider></mat-divider>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,26 @@
+ 
+<div class="mt20" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" class="uplf-card mt10">
+<ng-container  *ngFor="let item of summary; let i = index">
+  <mat-card fxFlex="20" fxFlex.lt-md="49"  class="mb10" *ngIf="i<=displaycount">
+    <mat-card-header >
+      <mat-card-title >
+        <div fxLayout="row nowrap"   fxLayoutAlign="space-between">
+        <h3 class="m-0">{{item.head}}</h3>
+      </div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <table style="width: 100%;">
+        <tr *ngFor="let d of item.data; let j = index">
+          <td>{{d.desc}}</td>
+          <td class="text-right">{{d.value}}</td>
+        </tr> 
+      </table>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+</div>
+<div fxLayout="row nowrap" fxLayoutAlign="end"  class="viewlink" >
+  <a (click)="displayDetails()"    *ngIf="this.screensize === 'sm' || this.screensize === 'xs'"> More..</a>
+</div>

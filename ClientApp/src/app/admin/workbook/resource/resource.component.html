@@ -1,0 +1,31 @@
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between stretch">
+    <div fxFlex="49" fxFlex.gt-md="30">
+      <div fxLayout="row nowrap"    fxLayoutAlign="space-between stretch">
+        <mat-form-field fxFlex="49" >
+          <mat-select [(value)]="costhead" placeholder="Select Cost"> 
+            <mat-option value="total">All</mat-option>
+            <mat-option value="1">Onsite</mat-option>
+            <mat-option value="0">Offshore</mat-option>
+            <mat-option value="2">Nearshore</mat-option> 
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <mat-select [(value)]="costtype" placeholder="Cost Type"> 
+            <mat-option value="all">All Cost</mat-option>
+            <mat-option value="Direct">Direct</mat-option>
+            <mat-option value="UAMCP">UAMCP</mat-option>
+            <mat-option value="DEALP">Deal Pursuite</mat-option>
+          </mat-select>
+        </mat-form-field> 
+      </div>
+    </div>
+    <div fxFlex="49" fxFlex.gt-md="30"> 
+       <div fxLayout="row nowrap"  fxLayoutAlign="end">
+        <div fxFlex class="text-right">
+            <button mat-button (click)="openCODDialog()" color="primary">PPM Actual vs FTE </button> 
+        </div>
+
+       </div>
+    </div> 
+  </div>
+<app-grid></app-grid>

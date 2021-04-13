@@ -1,0 +1,139 @@
+<div fxLayout="row wrap" fxLayout.xs="column"   fxLayoutAlign="space-between center" fxLayoutAlign.lt-sm="space-between stretch" >
+  <div fxFlex="35"  >
+    <div fxLayout="row wrap" fxLayoutAlign="space-between start" >
+      <mat-form-field fxFlex="49">
+        <mat-select [(value)]="ddlPeriodval"  placeholder="Filter"> 
+          <mat-option value="1">Monthly</mat-option>
+          <mat-option value="2">Quarterly</mat-option>
+          <mat-option value="3">Yearly</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="49">
+        <mat-select  [(value)]="ddlyearVal" placeholder="Year">         
+          <mat-option value="2021">2021</mat-option>
+          <mat-option value="2022">2022</mat-option>
+          <mat-option value="2020">2020</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div   class="pt20">
+      <mat-label>FX : </mat-label>
+      <mat-radio-group color="primary"  [(ngModel)]="rdFxVal">
+        <mat-radio-button value="1">Contant</mat-radio-button>
+        <mat-radio-button value="2">Reported</mat-radio-button>
+      </mat-radio-group>
+   
+  </div>
+  <div     class="pt20">
+    
+      <mat-label>USD : </mat-label>
+      <mat-radio-group color="primary" [(ngModel)]="rdCurval" >
+        <mat-radio-button value="1">Bn</mat-radio-button>
+        <mat-radio-button value="2">Mn</mat-radio-button>
+        <mat-radio-button value="3">K</mat-radio-button>
+      </mat-radio-group>
+     
+  </div>
+  <div  class="pt20"  >
+    <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon">
+      <mat-icon class="icon-lg">keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon">
+      <mat-icon class="icon-lg">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+      <th>&nbsp;</th>
+      <th>YTD 2021</th>
+      <th>Jan 2021</th>
+      <th>Feb 2021</th>
+      <th>Mar 2021</th>
+      <th>Apr 2021</th>
+      <th>May 2021</th>
+      <th>Jun 2021</th>
+      <th>FY 2021</th>    
+    </tr> 
+    </thead>
+    <tbody>
+      <tr class="subhead">
+        <th colspan="10">Forecast</th>
+      </tr> 
+      <tr>
+        <td>Rev $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>Cost $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>CP %</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr class="subhead">
+        <th colspan="10">Adjustment</th>
+      </tr> 
+      <tr>
+        <td>Rev $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>Cost $</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+      <tr>
+        <td>CP %</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+        <td>11,22,33.56</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+ 

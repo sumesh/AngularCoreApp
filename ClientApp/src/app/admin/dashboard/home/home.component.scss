@@ -1,0 +1,24 @@
+@import '~src/scss/variables';
+.location-icon {
+  color: $primary-color;
+}
+
+:host ::ng-deep .mat-card-header-text {
+ margin-left: 0;
+}
+
+.uplf-card { 
+  .mat-card   {
+    border-radius: 0px;
+  }
+
+  .uplfcard-head .mat-card-header-text{
+    margin-left:  0px !important;
+   
+    }
+}
+
+ 
+   
+ 
+ 

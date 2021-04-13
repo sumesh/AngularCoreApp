@@ -1,0 +1,32 @@
+.mat-toolbar{
+    height: 35px;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.breadcrumb {
+    background: none; 
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    a { 
+        text-decoration: none;
+        color: inherit;
+    }
+    a:hover, span:hover { 
+        text-decoration: underline;
+    }
+    li{
+        list-style: none; 
+        margin: 5px;
+    }
+    li:last-child {
+        margin-right: 10px;
+    }
+    li::after {
+        content: '>';
+         
+    }
+    li:last-child::after {
+        content: ''
+    }
+}

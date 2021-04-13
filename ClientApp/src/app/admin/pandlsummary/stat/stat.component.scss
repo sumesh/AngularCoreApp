@@ -1,0 +1,11 @@
+@import '~src/scss/variables';
+
+:host ::ng-deep .mat-card-header-text {
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+}
+.mat-card{
+border-radius: 0px;
+}
+ 

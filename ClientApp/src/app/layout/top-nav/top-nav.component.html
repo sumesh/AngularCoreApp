@@ -1,0 +1,47 @@
+<mat-toolbar  class="fix-nav">
+  <button type="button" mat-icon-button   (click)="toggleSidebar()"  color="primary">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <div class="nav-brand">
+   UPLF
+  </div>
+  <span class="nav-spacer"></span>
+  <!-- <form class="hidden-sm" style="margin-right: 20px; margin-top: 8px">
+    <mat-form-field style="font-size: 1rem;">
+      <input matInput placeholder="Search">
+    </mat-form-field>
+  </form> -->
+
+ 
+  <button mat-icon-button [matMenuTriggerFor]="notificationMenu"  color="primary">
+    <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
+  </button>
+  <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false"  >
+
+    <a mat-menu-item>
+      <span>You have new tasks</span>
+    </a>
+    <a mat-menu-item>
+      <span>You have a new message</span>
+    </a>
+
+  </mat-menu>
+  <!-- [matMenuTriggerFor]="profile" -->
+  <button  mat-icon-button (click)="togglerightNav()"    color="primary">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #profile="matMenu" [overlapTrigger]="false" >
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>inbox</mat-icon>
+      <span>Inbox</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </button>
+  </mat-menu> 
+</mat-toolbar>

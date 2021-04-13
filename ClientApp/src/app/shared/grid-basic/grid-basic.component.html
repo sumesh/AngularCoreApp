@@ -1,0 +1,93 @@
+{{gridinput | json}}
+
+<form [formGroup]="fbGridSearch">
+
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between center"
+    fxLayoutAlign.lt-sm="space-between stretch">
+    <div fxFlex="35">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+        <mat-form-field fxFlex="49">
+          <mat-select formControlName="ddlGridFilter" placeholder="Filter">
+            <mat-option  *ngFor="let r of gridMaster.filtertype" [value]="r">{{ r.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <mat-select formControlName="ddlGridYear" placeholder="Year">
+            <mat-option value="{{r.id}}" *ngFor="let r of gridMaster.year">{{ r.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="pt20">
+      <mat-label>FX : </mat-label>
+      <mat-radio-group color="primary" formControlName="rdgfx">
+        <mat-radio-button value="{{r.id}}" *ngFor="let r of gridMaster.fx">{{ r.value }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+    <div class="pt20">
+
+      <mat-label>USD : </mat-label>
+      <mat-radio-group color="primary" formControlName="rdgCurrency">
+        <mat-radio-button value="{{r.id}}" *ngFor="let r of gridMaster.dol">{{ r.value }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+    <div class="pt20">
+      <button mat-icon-button color="primary" aria-label="Prev" (click)="prevPeriod()">
+        <mat-icon class="icon-lg">keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" aria-label="Next" (click)="nextPeriod()">
+        <mat-icon class="icon-lg">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</form>
+ 
+
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <ng-container *ngFor="let ph of gridData.header; let i = index">
+          <th *ngIf="ph.show">
+            {{ph.name}}
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let desc of gridData.desc; let i = index" [ngClass]="{subhead: desc.type=='H'}">
+
+        <ng-container *ngIf="desc.type=='H'">
+          <th>{{desc.desc}}</th>
+          <ng-container *ngFor="let pr of gridData.header; let j = index">
+            <th *ngIf="pr.show">
+              <span></span>
+            </th>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="desc.type!='H'">
+          <td>{{desc.desc}}</td>
+          <ng-container *ngFor="let pr of gridData.header; let j = index">
+            <td  *ngIf="pr.show">
+              <span *ngIf="desc.type!='H' && !gridloading && desc.format=='$'"
+                title="{{getTableData(desc.descid,pr.id,'Value') | currency}}">
+                {{getTableData(desc.descid,pr.id,'Value')/displaycurrency | currency}}</span>
+              <span *ngIf="desc.type!='H' && !gridloading  && desc.format=='%'"
+                title="{{getTableData(desc.descid,pr.id,'Value') | percent:'1.2-6'}}">
+                {{getTableData(desc.descid,pr.id,'Value') | percent:'1.2-2'}}</span>
+              <div class="tdloading" *ngIf="gridloading">&nbsp;</div>
+            </td>
+          </ng-container>
+        </ng-container>  
+      </tr>
+    </tbody>
+  </table> 
+</div>
