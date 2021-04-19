@@ -3,14 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularCoreApp", "AngularCoreApp.csproj", "{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularCoreApp", "AngularCoreApp.csproj", "{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		azure|Any CPU = azure|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}.azure|Any CPU.ActiveCfg = azure|Any CPU
+		{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}.azure|Any CPU.Build.0 = azure|Any CPU
 		{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21004C6E-1C80-41E1-84AA-55BFC8B5D8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU

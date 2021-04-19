@@ -1,5 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug'">
+      <PropertyGroup>
+        <BaseHref>/</BaseHref>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <PropertyGroup>
+        <BaseHref>/angularcore/</BaseHref>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'azure'">
+      <PropertyGroup>
+        <BaseHref>/</BaseHref>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -10,6 +27,8 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>2a854c82-7538-4d2d-b4a4-6a464a20caa6</UserSecretsId>
+    <Configurations>Debug;Release;azure</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,7 +59,7 @@
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod --base-href $(BaseHref)" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Include the newly-built files in the publish output -->
