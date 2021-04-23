@@ -1,2 +1,32 @@
-trigger:
-- master
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: vs2017-win2016
+  steps:
+  - checkout: self
+    clean: true
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: dotnet build
+    inputs:
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: dotnet publish
+    inputs:
+      command: publish
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Azure App Service Deploy: testparakkatweb'
+    inputs:
+      ConnectedServiceName: af37481b-65d9-4249-8213-79c46ca7dfb3
+      WebAppName: testparakkatweb
+...
