@@ -1,0 +1,137 @@
+<mat-tab-group [selectedIndex]="0" mat-stretch-tabs>
+  <mat-tab>
+    <ng-template matTabLabel>Settings</ng-template>
+    <div class="scroll">
+      <mat-list class="pb-0">
+        <mat-list-item>
+          <div fxLayout="column">
+            <h3 class="ma-0">{{ today | date:'EEEE' }}</h3>
+            <h5 class="mat-text-muted ma-0"><span>{{ today | date:'dd' }}</span>&nbsp;<span>{{ today | date:'MMMM' }}</span></h5>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <mat-nav-list>
+        <mat-divider class="pb-1"></mat-divider> 
+        <!-- <form [formGroup]="masterselect"> -->
+        <mat-list-item>
+        <mat-form-field class="w-100"> 
+          <mat-select placeholder="Branch" style="width:100%"  [(value)]="branchID"  
+          (selectionChange)="ddlChangeEvenet()" >
+           <mat-option  *ngFor="let s of branchdtl" [value]="s.BranchID" >
+              {{s.BranchName}}
+            </mat-option> 
+          </mat-select>
+        </mat-form-field>
+        </mat-list-item> 
+        <mat-list-item>
+        <mat-form-field   class="w-100"> 
+          <mat-select placeholder="Financial Year" style="width:100%"  [(value)]="finYearID"  (selectionChange)="ddlFinYearChange()" >
+            <mat-option  *ngFor="let s of finYeardtl" [value]="s.FinYearID">
+              {{s.FinYear}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </mat-list-item> 
+        <mat-divider class="pb-1"></mat-divider> 
+        <mat-list-item>
+        <mat-form-field class="w-100"> 
+          <mat-select placeholder="Invoice Type" style="width:100%" [(value)]="InvoiceType"
+          (selectionChange)="ddlInvoiceTypeChange()" >
+            <mat-option  *ngFor="let s of lstInvoiceType" [value]="s.TypeD" >
+              {{s.InvoiceType}}
+            </mat-option> 
+          </mat-select>
+        </mat-form-field>
+        </mat-list-item> 
+
+        <mat-list-item>
+          <div fxLayout="row" fxLayoutGap="1rem"  >
+            <mat-form-field fxFlex="20" > 
+              <mat-select placeholder="Invoice Type" style="width:100%" [(value)]="InvSeries" >
+                <mat-option  *ngFor="let s of lstInvSeries" [value]="s.InvSeries" >
+                  {{s.InvSeries}}
+                </mat-option> 
+              </mat-select>
+            </mat-form-field> 
+            <mat-form-field fxFlex="25" > 
+              <input type="number" matInput placeholder="Invoice Number" [(ngModel)]="InvoiceNumber">
+            </mat-form-field>
+            <div fxFlex="30">
+                <button mat-icon-button (click)="searchinvoice()" matTooltip="Search Invoice">
+                  <i class="material-icons">search</i>
+                </button>
+              </div>
+          </div>
+            </mat-list-item> 
+        <mat-list-item>
+
+        <mat-divider class="pb-1"></mat-divider> 
+        <div class="pb-1">
+            <mat-checkbox [(ngModel)]="options.dark" (change)="sendOptions()">Dark Mode</mat-checkbox>
+          </div>
+        </mat-list-item>
+      <!-- </form>  -->
+        <!-- <h3 mat-subheader class="text-uppercase font-weight-bold">Stocks</h3>
+        <mat-list-item>
+            <a matLine href="javascript:;">NASDAQ</a>
+            <span class="mat-text-muted text-md mr-xs ml-xs">4,492.87</span>
+            <span>-0.29%</span>
+        </mat-list-item> -->
+        
+      </mat-nav-list>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template matTabLabel>Ver.{{Release?.version}}</ng-template>
+    <div class="scroll">
+      <mat-nav-list>
+        <mat-list-item  *ngFor="let v of Release?.releases">
+          <mat-icon mat-list-avatar >{{v.rtype}}</mat-icon>
+          <h4 matLine>{{v?.rdate}} - ver.{{v?.ver}}</h4>
+          <p class="text-md mat-text-muted" matLine *ngFor="let r of v?.notes" title="{{r?.note}}">{{r?.note}}</p>
+        </mat-list-item>
+        <!-- <mat-list-item>
+          <mat-icon mat-list-avatar class="mat-text-warn">local_offer</mat-icon>
+          <h4 matLine>Promotions</h4>
+          <p matLine>Etiam Ligula Dapibus</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar class="mat-text-accent">info</mat-icon>
+          <h4 matLine>Updates</h4>
+          <p matLine>Sollicitudin Euismod Fringilla</p>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-icon mat-list-avatar class="mat-indigo">track_changes</mat-icon>
+          <h4 matLine>Removed 6 items from task list</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1427207139000 | date: 'fullDate' }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar>check_circle</mat-icon>
+          <h4 matLine>Completed 2 projects</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1427412725000 | date: 'fullDate' }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar>notifications_paused</mat-icon>
+          <h4 matLine>Muted notifications</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1427546580000 | date: 'fullDate' }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar>person_add</mat-icon>
+          <h4 matLine>Added Joel to contact list</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1428275520000 | date: 'fullDate' }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar>phone_missed</mat-icon>
+          <h4 matLine>Missed live call from Ellie</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1428830580000 | date: 'fullDate' }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-avatar>group_add</mat-icon>
+          <h4 matLine>You've been added to HR group</h4>
+          <span class="text-md mat-text-muted" matLine>{{ 1429363920000 | date: 'fullDate' }}</span>
+        </mat-list-item> -->
+      </mat-nav-list>
+    </div>
+  </mat-tab>
+</mat-tab-group>

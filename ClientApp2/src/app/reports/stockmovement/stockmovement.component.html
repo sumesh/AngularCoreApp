@@ -1,0 +1,87 @@
+<form [formGroup]="fblist">
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="20" class="mb-1">
+      <input matInput [matAutocomplete]="auto" formControlName="itemcode" mdTooltip="Tooltip!" title="Item Code" placeholder="Code">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let item of filteredItem | async | slice : 0 : 50" [value]="item">
+          <span>{{item.Code}}</span>
+          <span> ({{item.Name}} - Qty {{item.Qty}}) </span>
+        </mat-option>
+      </mat-autocomplete>
+      <input type="hidden" formControlName="itemid" value="0" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex="15">
+      <input matInput [matDatepicker]="picker_s" placeholder="Start Date" formControlName="startdate" [min]="minDate" [max]="maxDate">
+      <!-- <button matSuffix [matDatepickerToggle]="picker"></button> -->
+      <mat-datepicker-toggle matSuffix [for]="picker_s"></mat-datepicker-toggle>
+      <mat-error *ngIf="fblist.get('startdate').hasError('required') && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">Start Date Required.</mat-error>
+      <mat-error *ngIf="fblist.get('startdate').errors?.date && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">Start Date is invalid.</mat-error>
+      <mat-datepicker #picker_s></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="15">
+      <input matInput [matDatepicker]="picker_e" placeholder="End date" formControlName="enddate" [min]="minDate" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="picker_e"></mat-datepicker-toggle>
+      <mat-error *ngIf="fblist.get('enddate').hasError('required') && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">End Date Required.</mat-error>
+      <mat-error *ngIf="fblist.get('enddate').errors?.date && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">End Date is invalid.</mat-error>
+      <mat-datepicker #picker_e></mat-datepicker>
+    </mat-form-field>
+    <mat-card-actions fxFlex>
+      <button mat-raised-button color="primary" (click)="getData();">View</button>
+      <button mat-raised-button color="primary" (click)="download()">Download</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<table mat-table [dataSource]="dataSource"> 
+  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">{{ column.cell(row) }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
+
+<!-- [pageSize]="pageSize"  -->
+<mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons ></mat-paginator>
+
+<!-- <ngx-datatable class='material' [rows]='rows' [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+  [limit]="20">
+  <ngx-datatable-column name="Item" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.BatchNo}} {{row?.ItemName}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Type" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Status}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Inv. No#" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span>{{row?.InvoiceNumber}}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Date" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.InvDate_S}}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Remarks" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Comments}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Quantity" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Quantity}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Bal. Qty" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.BalaceQuantity}}
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable> -->

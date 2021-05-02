@@ -1,0 +1,87 @@
+<form [formGroup]="fblist">
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="25" class="mb-1">
+      <input matInput placeholder="Type to filter the name column..." formControlName="txtFilter">
+    </mat-form-field>
+    <!-- (keyup)='updateFilter($event)' -->
+    <mat-form-field fxFlex="25">
+      <mat-select placeholder="Category" style="width:100%" formControlName="categoryid">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option *ngFor="let s of categorylist" [value]="s.Brnd">
+          {{s.Brnd}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="25">
+      <mat-select placeholder="Group" style="width:100%" formControlName="itemgroup">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option *ngFor="let s of itemgrouplist" [value]="s.Grp">
+          {{s.Grp}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-card-actions fxFlex>
+      <!-- <button mat-raised-button color="primary" type="submit" (click)="getData()">View</button> -->
+
+
+    </mat-card-actions>
+
+
+
+
+  </mat-card>
+</form>
+
+<mat-card>
+  <mat-card-content>
+    <div  fxLayout="row wrap" fxLayoutWrap="wrap" fxLayout.xs="column" fxLayoutGap.xs="0" >
+
+      <div fxFlex.gt-sm="20" fxFlex.gt-xs="33.333%" fxFlex="100" *ngFor="let product of products">
+        <mat-card>
+          <div class="media-grid">
+            <figure>
+              <div class="product-badge" *ngIf="product.Status === 1"><span>New</span></div>
+              <img src="{{getURL(product.Path)}}" (error) ="onImgError($event)">
+              <figcaption>
+                <p>
+                  <a href="javascript:;" matTooltip="Add to cart" matTooltipPosition="left">
+                    <mat-icon>shopping_basket</mat-icon>
+                  </a>
+                  <a href="javascript:;" matTooltip="Add to favorites" matTooltipPosition="left">
+                    <mat-icon>favorite</mat-icon>
+                  </a>
+                  <a href="javascript:;" matTooltip="Share" matTooltipPosition="left">
+                    <mat-icon>share</mat-icon>
+                  </a>
+                  <a href="javascript:;" matTooltip="Bookmark" matTooltipPosition="left">
+                    <mat-icon>bookmark</mat-icon>
+                  </a>
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <div fxFlex>
+                <p class="ma-0">{{ product.Name }}-{{ product.ItemCode }} </p>
+                <p class="ma-0 pa-0 text-md">{{ product.Desc }}</p>
+              </div>
+              <div class="text-xl">
+                <span class="strikethrough mat-text-muted text-sm" *ngIf="product.Status === 2">$
+                  ₹ {{ product.MRP }}</span>
+                <span>  ₹{{ product.Price }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+     <!-- [pageSize]="pageSize"  -->
+<mat-paginator [pageSizeOptions]="[20,50,100]"  [length]="length"  [pageIndex]="pageIndex"
+[pageSize]="pageSize" showFirstLastButtons (page)="onPaginateChange($event)"></mat-paginator>
+
+
+  </mat-card-content>
+</mat-card>

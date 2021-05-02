@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Print {{data?.InvType}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="finvcancel">
+    <div class="container" fxLayout="column" fxLayoutAlign="start" fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+ 
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Comments" #characterCountHintExample maxlength="100" formControlName="Comments">
+        <mat-hint align="end">{{ characterCountHintExample.value.length }} / 100</mat-hint>
+        <mat-error *ngIf="finvcancel.get('Comments').hasError('required')">Comments Required.</mat-error>
+        <mat-error *ngIf="finvcancel.get('Comments').hasError('minlength') && (finvcancel.get('Comments').dirty || finvcancel.get('Comments').touched)">Comments must be at least 5 characters long.</mat-error>
+      </mat-form-field>
+
+      <div fxFlex>
+        <button mat-raised-button color="primary" mat-dialog-close (click)="dialogRef.close()">Close</button>
+        <button mat-raised-button color="primary" type="submit" (click)="saveCancel()">Cancel Invoice</button>
+      </div>
+    </div>
+  </form>  
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- <button class="mat-raised-button"(click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary"(click)="save()">Save</button> -->
+
+</mat-dialog-actions>

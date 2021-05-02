@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Print {{data?.InvType}}</h2>
+<mat-dialog-content>
+	<form [formGroup]="printaudit">
+		<div class="container" fxLayout="column" fxLayoutAlign="start" fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+			<div fxFlex style="min-height: 20px">
+				<mat-checkbox formControlName="isCusCopy">Cuctomer</mat-checkbox>
+				<mat-checkbox formControlName="IsShCopy">Shop</mat-checkbox>
+				<mat-checkbox formControlName="isCmpCopy">Company</mat-checkbox>
+			</div>
+			<mat-form-field fxFlex>
+				<input matInput placeholder="Comments" #characterCountHintExample maxlength="100" formControlName="Comments">
+        <mat-hint align="end">{{ characterCountHintExample.value.length }} / 100</mat-hint>
+        <mat-error *ngIf="printaudit.get('Comments').hasError('required')">Comments Required.</mat-error>
+        <mat-error *ngIf="printaudit.get('Comments').hasError('minlength') && (printaudit.get('Comments').dirty || printaudit.get('Comments').touched)">Comments must be at least 5 characters long.</mat-error>
+      </mat-form-field>
+
+      <div fxFlex>
+        <button mat-raised-button color="primary" mat-dialog-close (click)="dialogRef.close()">Close</button>
+        &nbsp;
+        <button mat-raised-button color="primary" type="submit" (click)="savePrint()">Print</button>
+      </div>
+    </div>
+  </form>
+ 
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="printedby">
+      <th mat-header-cell *matHeaderCellDef> Printed By </th>
+      <td mat-cell *matCellDef="let element">  <strong>{{element.PrintUser}}</strong>
+        <br/>
+        <span class="mat-text-muted" title="{{element.Comments}}">{{element.PrintDate}}</span> </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="custcopy">
+      <th mat-header-cell *matHeaderCellDef> Cust. </th>
+      <td mat-cell *matCellDef="let element"> {{element.CustCopy}} </td>
+    </ng-container>
+  <!-- Symbol Column -->
+ <ng-container matColumnDef="shopcopy">
+      <th mat-header-cell *matHeaderCellDef> Shop </th>
+      <td mat-cell *matCellDef="let element"> {{element.ShopCopy}} </td>
+    </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="cmpcopy">
+      <th mat-header-cell *matHeaderCellDef> Company </th>
+      <td mat-cell *matCellDef="let element"> {{element.CmpCopy}} </td>
+    </ng-container> 
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+ 
+  <!-- <ngx-datatable class="material" [rows]="printlist" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
+    
+    <ngx-datatable-column name="Cust." [flexGrow]="1">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        {{row.CustCopy}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Shop" [flexGrow]="1">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        {{row.ShopCopy}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Company" [flexGrow]="1">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        {{row.CmpCopy}}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable> -->
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- <button class="mat-raised-button"(click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary"(click)="save()">Save</button> -->
+
+</mat-dialog-actions>

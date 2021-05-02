@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+.mat-autocomplete-panel
+{
+    width: 300px;
+}
+
+::ng-deep .cdk-overlay-pane {
+  /* Do you changes here */
+    min-width:300px;
+}

@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="mat-subheading-2">{{itemcode}} - Update Cur. Qty </div>
+    
+    <mat-form-field>
+      <input matInput type="number" min="0" name="curqty" [(ngModel)]="curqty">
+      <!-- <mat-hint align="end">{{comment?.length || 0}}/140</mat-hint> -->
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button type="button" color="primary" (click)="onCancel()">CANCEL</button>
+      <button mat-button type="submit" color="primary">SAVE</button>
+    </div>
+  </form>

@@ -1,0 +1,189 @@
+
+.text-label{
+  font-size: 10px;
+
+}
+
+   page[size="A5"] {
+     background: white;
+     width: 21cm;
+     height: 12.85cm;
+     /*29.7cm;*/
+     display: block;
+     margin: 0 auto;
+     margin-bottom: 0.5cm;
+     /* box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5); */
+     padding: 1%;
+     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+   }
+   .item-list {
+     border-collapse: collapse;
+     width: 100%;
+     font-size: 12px;
+   }
+   .item-list tr.items th,
+   .item-list tr.items td {
+     border: 1px solid #424040;
+     border-bottom: none;
+     border-top: none;
+     font-size: 11px;
+     padding-top: 3px;
+   }
+   .item-list tr.items th {
+     font-weight: 500;
+     height: 15px;
+     background-color: #eee;
+     vertical-align: middle;
+     border: 1px solid #424040;
+   }
+   .item-list tr.items:last td {
+     border-bottom: 1px solid #424040;
+   }
+   .item-list tr.items td {
+     height: 16px;
+   }
+   .item-list tfoot tr td {
+     height: 16px;
+   }
+
+   tfoot tr.item-bold td {
+    font-weight:bold;
+   }
+
+   .tax-table
+   {
+    font-size: 10px;
+   }
+   .tax-table tr.items th,
+   .taxtable tr.items td 
+   {
+    padding-top: 1px;
+   }
+  
+
+   .inv-width-3 {
+     width: 3%;
+   }
+   .inv-width-4 {
+     width: 4%;
+   }
+   .inv-width-5 {
+     width: 6%;
+   }
+   .inv-width-6 {
+     width: 6%;
+   }
+   .inv-width-7 {
+     width: 7%;
+   }
+   .inv-width-9 {
+     width: 9%;
+   }
+   .inv-width-10 {
+     width: 10%;
+   }
+
+   .inv-width-12 {
+    width: 12%;
+  }
+   .inv-width-15 {
+     width: 15%;
+   }
+   .inv-width-25 {
+     width: 25%;
+   }
+   .inv-width-28 {
+    width: 28%
+  }
+   .inv-width-30 {
+     width: 30%
+   }
+   .inv-center {
+     text-align: center;
+     vertical-align: middle;
+   }
+   .inv-left {
+     text-align: left;
+     vertical-align: middle;
+   }
+   .inv-right {
+     text-align: right;
+     vertical-align: middle;
+     padding-right: 2px;
+   }
+   .item-header .fl {
+     float: left;
+     border-right: 1px solid #424040;
+   }
+   .item-header .fr {
+     float: left;
+     border-right: 1px solid #424040;
+   }
+   .item-header .header-company {
+     text-align: left;
+     width: 58%;
+   }
+   .item-header .header-details {
+     text-align: right;
+     width: 40%;
+   }
+   .item-header {
+     width: 100%;
+     font-size: 12px;
+     clear: both;
+     border-collapse: collapse;
+   }
+   .item-header h1 {
+     margin: 0;
+     padding: 0;
+   }
+   .item-header h3 {
+     margin: 0;
+     padding: 0;
+   }
+   .head-width-60 {
+     width: 62.2%;
+   }
+   .br-1-b0 {
+     border: 1px solid #424040;
+     border-bottom: none;
+   }
+   .br-b1 {
+     border-bottom: 1px solid #424040;
+   }
+   .br-r1 {
+     border-right: 1px solid #424040;
+   }
+
+   .br-t1 {
+    border-top: 1px solid #424040;
+  }
+
+   .footer {break-after: always;}
+   @media print {
+   html,
+   body {
+     width: 21cm;
+     height: 12.85cm;
+     /*29.7cm;*/
+   }
+   body {
+     margin: 0;
+     padding: 0;
+     background-color: transparent;
+     box-shadow: 0;
+     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+   }
+   body,
+   page[size="A5"] {
+     margin: 0;
+     box-shadow: 0;
+   }
+   @page {
+     margin: .2cm
+   }
+   /* All margins set to 2cm */
+   .page-break{page-break-before:always}
+
+   .footer {page-break-after: always;}
+ }

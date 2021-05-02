@@ -1,0 +1,196 @@
+<form [formGroup]="fblist">
+  <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="25" class="mb-1">
+      <input matInput placeholder="Type to filter the name column..." (keyup)='updateFilter($event)'
+        formControlName="filtervalue">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="25">
+      <input matInput [matDatepicker]="picker_s" placeholder="Start Date" formControlName="startdate" [min]="minDate"
+        [max]="maxDate">
+      <!-- <button matSuffix [matDatepickerToggle]="picker"></button> -->
+      <mat-datepicker-toggle matSuffix [for]="picker_s"></mat-datepicker-toggle>
+      <mat-error
+        *ngIf="fblist.get('startdate').hasError('required') && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date Required.</mat-error>
+      <mat-error
+        *ngIf="fblist.get('startdate').errors?.date && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date is invalid.</mat-error>
+      <mat-datepicker #picker_s></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="25">
+      <input matInput [matDatepicker]="picker_e" placeholder="End date" formControlName="enddate" [min]="minDate"
+        [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="picker_e"></mat-datepicker-toggle>
+      <mat-error
+        *ngIf="fblist.get('enddate').hasError('required') && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">
+        End Date Required.</mat-error>
+      <mat-error
+        *ngIf="fblist.get('enddate').errors?.date && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">End
+        Date is invalid.</mat-error>
+      <mat-datepicker #picker_e></mat-datepicker>
+    </mat-form-field>
+
+    <mat-card-actions   fxFlex>
+      <button mat-raised-button color="primary" (click)="getData();">View</button>
+      <button mat-raised-button color="primary" (click)="sessiondata.redirect('purchase/purchasereturn');">Purchase Return</button>
+   </mat-card-actions>
+  </div>
+</form>
+
+
+<table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="srinvno">
+        <th mat-header-cell *matHeaderCellDef> SR . No# </th>
+        <td mat-cell *matCellDef="let element">   
+            <span matTooltip="Name:{{element?.Customer?.Name}} \n Address:{{element?.Customer?.Address}}\n Phone:{{element?.Customer?.Phone}}">{{element?.SRInvNo}}</span>
+          <button mat-icon-button color="warn" *ngIf="element?.IsCancel" matTooltip="Cancelled On:{{element?.CDate}}  Reason: {{element?.CReason}}">
+              <i  class="material-icons" >cancel</i>
+           </button>
+           </td>
+      </ng-container>
+      
+     <ng-container matColumnDef="invdatetime">
+        <th mat-header-cell *matHeaderCellDef> Date- Time </th>
+        <td mat-cell *matCellDef="let element">    {{element?.SRDate_S}} {{element?.SRTime_S}} </td> 
+      </ng-container>
+     
+      <ng-container matColumnDef="invno">
+         <th mat-header-cell *matHeaderCellDef>Inv No#</th>
+         <td mat-cell *matCellDef="let element"> 
+             <span matTooltip="Date:{{element?.InvDate_S}} {{element?.InvTime_S}}">{{element?.InvoiceNumber}}</span>  
+         </td> 
+       </ng-container>
+     
+       <ng-container matColumnDef="mode">
+           <th mat-header-cell *matHeaderCellDef> Mode  </th>
+           <td mat-cell *matCellDef="let element"> {{element?.PayMode}} </td> 
+         </ng-container>
+     
+      <ng-container matColumnDef="invtotal">
+        <th mat-header-cell *matHeaderCellDef> Total  </th>
+        <td mat-cell *matCellDef="let element"> {{element?.totalvalue | number:'1.2-2'}} </td> 
+      </ng-container>
+
+      <ng-container matColumnDef="totdiscbtaxval">
+        <th mat-header-cell *matHeaderCellDef> Discount  </th>
+        <td mat-cell *matCellDef="let element"> {{element?.totdiscbtaxval | number:'1.2-2'}} </td> 
+      </ng-container>
+
+      
+     
+      <ng-container matColumnDef="sgst">
+        <th mat-header-cell *matHeaderCellDef> SGST </th>
+        <td mat-cell *matCellDef="let element">     {{element?.SGSTAmt | number:'1.2-2'}}</td> 
+      </ng-container>
+     
+      <ng-container matColumnDef="cgst">
+        <th mat-header-cell *matHeaderCellDef> CGST </th>
+        <td mat-cell *matCellDef="let element">  {{element?.CGSTAmt | number:'1.2-2'}}   </td> 
+      </ng-container>
+
+      <ng-container matColumnDef="igst">
+          <th mat-header-cell *matHeaderCellDef> IGST </th>
+          <td mat-cell *matCellDef="let element">  {{element?.IGSTAmt | number:'1.2-2'}}   </td> 
+        </ng-container>
+     
+      <ng-container matColumnDef="kfcess">
+          <th mat-header-cell *matHeaderCellDef> KF Cess </th>
+          <td mat-cell *matCellDef="let element">  {{element?.KFCessAmount | number:'1.2-2'}}   </td> 
+        </ng-container>
+
+      <ng-container matColumnDef="roundoff">
+        <th mat-header-cell *matHeaderCellDef> Round Off </th>
+        <td mat-cell *matCellDef="let element">  {{element?.RoundOff  | number:'1.2-2'}} </td> 
+      </ng-container>  
+     
+        <ng-container matColumnDef="grandtotal">
+        <th mat-header-cell *matHeaderCellDef> Grand Total </th>
+        <td mat-cell *matCellDef="let element">      {{element?.grandtotal | number:'1.2-2'}} </td> 
+      </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="redirectPage('view',element)">
+        <i class="material-icons">search</i>
+      </button>
+      <button mat-icon-button (click)="redirectPage('edit',element)" *ngIf="userAccess?.Edit">
+        <i class="material-icons">edit</i>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+
+<!-- [pageSize]="pageSize"  -->
+<mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons (page)="onPaginateChange($event)"></mat-paginator>
+
+
+<!-- <ngx-datatable class='material' [rows]='rows' [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+  [limit]="10" (page)="onTableChange($event)">
+  <ngx-datatable-column name="SR. No#" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span matTooltip="Name:{{row?.Customer?.Name}} \n Address:{{row?.Customer?.Address}}\n Phone:{{row?.Customer?.Phone}}">{{row?.SRInvNo}}</span>
+      <button mat-icon-button color="warn" *ngIf="row?.IsCancel" matTooltip="Cancelled On:{{row?.CDate}}  Reason: {{row?.CReason}}">
+          <i  class="material-icons" >cancel</i>
+       </button>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Date- Time" [flexGrow]="2">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.SRDate_S}} {{row?.SRTime_S}}
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name="Mode" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.PayMode}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Total" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.totalvalue | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="SGST" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.SGSTAmt | number:'1.2-2'}} 
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="CGST" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.CGSTAmt | number:'1.2-2'}} 
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column name="Damage Deduction" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.RoundOff | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Grand Total" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.grandtotal | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Action" [flexGrow]="1" sortable="false" prop="SRID">
+    <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+  
+          <button mat-icon-button (click)="redirectPage('view',row)" >
+            <i class="material-icons">search</i>
+          </button>
+          <button mat-icon-button (click)="redirectPage('edit',row)" *ngIf="userAccess?.Edit">
+            <i class="material-icons">edit</i>
+          </button>
+       
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable> -->

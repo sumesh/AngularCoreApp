@@ -1,0 +1,20 @@
+[
+  {
+    "Type": "File",
+    "Value": "7E281760D1118EABF9BB855936F13CB1",
+    "Organization": "Cryptam Source",
+    "Rating": 3,
+    "Confidence": 90,
+    "DateAdded": "11-09-2016",
+    "LastModified": "11-09-2016",
+    "Description": "",
+    "Source": "https://repo.cryptam.com/reports/c796a041bb60336e8c0fde04b4d20e32b5f5b15cc831e728143d26985cf3be65.html",
+    "DNS": "",
+    "Whois": "",
+    "Observations": 0,
+    "Date Last Observed": "",
+    "False Positives": 0,
+    "Date FP Last Reported": "",
+    "Tags": "Malware Tracker"
+  }
+]

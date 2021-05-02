@@ -1,0 +1,66 @@
+{
+    "appname": "Parakkat",
+    "version": "1.10.12",
+    "releases": [
+        {
+            "rdate": "2019-12-03",
+            "ver": "1.10.12",
+            "rtype": "track_changes",
+            "notes": [
+              { "note": "Discount with Price" }                           
+            ]
+          },
+        {
+            "rdate": "2019-11-18",
+            "ver": "1.10.11",
+            "rtype": "track_changes",
+            "notes": [
+              { "note": "EWay Bill Text" },
+              { "note": "Change Password" }              
+            ]
+          },
+        {
+            "rdate": "2019-10-14",
+            "ver": "1.10.1",
+            "rtype": "track_changes",
+            "notes": [
+              { "note": "IGST Changes, Print Size to A4" },
+              { "note": "Purchase Return -  added" },
+              { "note": "Purchase - Import from Sale added" },
+              { "note": "Sales Return  - Import From Purchase Return" },
+              { "note": "Customer - Default Country State City Selection" },
+              { "note": "Reports - Stock Check added" }
+            ]
+          },
+        {
+            "rdate": "2019-09-16",
+            "ver": "1.9.1",
+            "rtype":"track_changes",
+            "notes": [
+                { "note": "Salesreturn - Fin Year selection added"  },
+                { "note": "Purchase - Fin Year selection added"  },
+                { "note": "Jobcard - Fin Year selection added"  },
+                { "note": "Service - Fin Year selection added"  }
+
+            ]
+        },
+        {
+            "rdate": "2019-08-20",
+            "ver": "1.9",
+            "rtype":"track_changes",
+            "notes": [
+                { "note": "Salesreturn - auto fill item by giving invoice id"  },
+                { "note": "ReportMaster - Added loading symbol"  }
+            ]
+        },
+        {
+            "rdate": "2019-08-15",
+            "ver": "1.9.1",
+            "rtype":"bug_report",
+            "notes": [
+                { "note": "Service - auto fill item by giving jobcard id"  },
+                { "note": "Service - Added KF Cess textbox"  }
+            ]
+        }
+    ]
+}

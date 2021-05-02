@@ -1,0 +1,339 @@
+<form [formGroup]="salesform" (keydown.enter)="$event.preventDefault()">
+  <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-card fxFlex="49">
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!userAccess.Save" type="submit" (click)="save(salesform.valid,false)">Save</button>
+        <button mat-raised-button color="primary" [disabled]="!userAccess.Save" type="submit" (click)="save(salesform.valid,true)">Save & Print</button>
+        <button mat-raised-button color="primary" (click)="sessiondata.redirect('service/service/list');">List</button>
+        <button mat-raised-button color="primary" (click)="reset()">Clear</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card fxFlex="45">
+      <mat-card-content>
+        <div style="min-height: 100%;line-height: 30px;">
+          <mat-checkbox formControlName="iscash">Cash</mat-checkbox>
+          <mat-checkbox formControlName="iscard">Card</mat-checkbox>
+          <mat-checkbox formControlName="iscredit">Credit</mat-checkbox>
+          <mat-checkbox formControlName="iswithwarranty">Warranty</mat-checkbox>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-card fxFlex="49">
+      <mat-card-content>
+
+        <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+          <mat-form-field fxFlex="24">
+            <mat-select placeholder="Invoice Series" style="width:100%" formControlName="InvSeries">
+              <mat-option *ngFor="let s of invSeriesData" [value]="s.value">
+                {{s.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="24">
+            <input matInput placeholder="Invoice Number" formControlName="invoicenumber">
+            <mat-error *ngIf="salesform.get('invoicenumber').hasError('required') && (salesform.get('invoicenumber').dirty || salesform.get('invoicenumber').touched)">Invoice Number Required.</mat-error>
+            <mat-error *ngIf="salesform.get('invoicenumber').hasError('minlength') && (salesform.get('invoicenumber').dirty || salesform.get('invoicenumber').touched)">Invoice Number must be at least 10 characters long.</mat-error>
+          </mat-form-field>
+
+
+
+
+          <mat-form-field fxFlex="45">
+            <input matInput [matDatepicker]="picker" placeholder="Sale date" formControlName="invoicedate">
+            <!-- <button matSuffix [matDatepickerToggle]="picker"></button> -->
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-error *ngIf="salesform.get('invoicedate').hasError('required') && (salesform.get('invoicedate').dirty || salesform.get('invoicedate').touched)">Invoice Date Required.</mat-error>
+            <mat-error *ngIf="salesform.get('invoicedate').errors?.date && (salesform.get('invoicedate').dirty || salesform.get('invoicedate').touched)">Invoice Date is invalid.</mat-error>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex="24">
+                <mat-select placeholder="Jobcard Finyear" style="width:100%" formControlName="refFinyear">
+                  <mat-option *ngFor="let s of refFinyearData" [value]="s.FinYearID">
+                    {{s.FinYear}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          <mat-form-field fxFlex="24">
+            <input type="number" matInput placeholder="JobCard Number" formControlName="refnum" min="1"> 
+            <mat-error *ngIf="salesform.get('refnum').hasError('required') && (salesform.get('refnum').dirty || salesform.get('refnum').touched)">Ref. number Required.</mat-error>
+            <mat-error *ngIf="salesform.get('refnum').hasError('min')">Not Valid</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="49">
+            <mat-select placeholder="Sales Executive" style="width:100%" formControlName="salesmanid">
+              <mat-option *ngFor="let s of salesmanlist" [value]="s.EmpID">
+                {{s.EmpName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="salesform.get('salesmanid').hasError('required')">Sales Executive Required.</mat-error>
+            <mat-error *ngIf="salesform.get('salesmanid').hasError('minlength') && (salesform.get('salesmanid').dirty || salesform.get('salesmanid').touched)">Invoice Number must be at least 10 characters long.</mat-error>
+          </mat-form-field>
+        </div>
+        <div style="display: none">
+          <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0" style="display:none">
+            <mat-form-field fxFlex="49">
+              <!--  -->
+              <mat-select placeholder="Sale Type" style="width:100%" formControlName="saletype">
+                <mat-option *ngFor="let s of salesType" [value]="s.value">
+                  {{s.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="49">
+              <!--  -->
+              <mat-select placeholder="Reference Type" style="width:100%" formControlName="reftype">
+                <mat-option *ngFor="let s of refferenceType" [value]="s.value">
+                  {{s.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+          </div>
+
+          <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0" style="display:none">
+            <mat-form-field fxFlex="49">
+              <input matInput placeholder="Guarantee Card No." formControlName="guaranteecard">
+              <mat-error *ngIf="salesform.get('guaranteecard').hasError('required') && (salesform.get('guaranteecard').dirty || salesform.get('guaranteecard').touched)">Invoice Number Required.</mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field fxFlex="49">
+              <input matInput [matDatepicker]="guaranteepicker" placeholder="Guarantee Up To" formControlName="guaranteedate">
+              <mat-datepicker-toggle matSuffix [for]="guaranteepicker"></mat-datepicker-toggle>
+              <!-- <button matSuffix [matDatepickerToggle]="guaranteepicker"></button> -->
+              <!-- <mat-error *ngIf="salesform.get('guaranteepicker').hasError('required') && (salesform.get('guaranteepicker').dirty || salesform.get('guaranteepicker').touched)">Invoice Date Required.</mat-error> -->
+              <mat-error *ngIf="salesform.get('guaranteedate').errors?.date && (salesform.get('guaranteedate').dirty || salesform.get('guaranteedate').touched)">Invoice Date is invalid.</mat-error>
+              <mat-datepicker #guaranteepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card fxFlex="49">
+      <mat-card-content>
+
+        <div formGroupName="customer">
+          <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+              <div fxFlex="49" fxLayout="row" fxLayoutGap="0rem">
+                  <mat-form-field fxFlex>
+                      <input type="hidden" formControlName="custid" value="0">
+                    <input matInput placeholder="Customer Name" formControlName="name">
+                    <!-- <mat-icon matSuffix (onclick)="searchcustomer()"> perm_identity</mat-icon> -->
+                    <mat-error *ngIf="salesform.get('customer').get('name').hasError('required') ">Customer Name Required.
+                    </mat-error>
+                    <!-- && (salesform.get('customer').get('name').dirty || salesform.get('customer').get('name').touched) -->
+                    <mat-error
+                      *ngIf="salesform.get('customer').get('name').hasError('minlength') && (salesform.get('customer').get('name').dirty || salesform.get('customer').get('name').touched)">
+                      Customer name must be at least 3 characters long.</mat-error> 
+                  </mat-form-field>
+                  <div fxFlex="20">
+                    <button mat-icon-button (click)="searchcustomer()" matTooltip="Search Customer">
+                      <i class="material-icons">person_add</i>
+                    </button>
+                  </div>
+                </div>
+
+            <mat-form-field fxFlex="49">
+              <input matInput placeholder="Mobile Number" formControlName="phone">
+              <mat-icon matSuffix>local_phone</mat-icon>
+              <mat-error *ngIf="salesform.get('customer').get('phone').hasError('required') && (salesform.get('customer').get('phone').dirty || salesform.get('customer').get('phone').touched)">Phone Number Required.</mat-error>
+              <mat-error *ngIf="salesform.get('customer').get('phone').hasError('minlength') && (salesform.get('customer').get('phone').dirty || salesform.get('customer').get('phone').touched)">Phone Number must be at least 10 characters long.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+            <mat-form-field fxFlex>
+              <input matInput placeholder="Address" #characterCountHintExample maxlength="100" formControlName="address">
+              <mat-icon matSuffix>place</mat-icon>
+              <mat-hint align="end">{{ characterCountHintExample.value.length }} / 100</mat-hint>
+            </mat-form-field>
+
+
+          </div>
+          <div style="display:none">
+            <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+              <mat-form-field fxFlex="49">
+                <input matInput placeholder="Postal Code" formControlName="postalcode">
+                <mat-icon matSuffix>local_post_office</mat-icon>
+                <mat-error *ngIf="salesform.get('customer').get('postalcode').hasError('required') && (salesform.get('customer').get('postalcode').dirty || salesform.get('customer').get('postalcode').touched)">Postal Code Required.</mat-error>
+                <mat-error *ngIf="salesform.get('customer').get('postalcode').hasError('minlength') && (salesform.get('customer').get('postalcode').dirty || salesform.get('customer').get('postalcode').touched)">Postal Code must be at least 6 characters long.</mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="49">
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="salesform.get('customer').get('email').errors?.email && (salesform.get('customer').get('email').dirty || salesform.get('customer').get('email').touched)">You must include a valid email address.</mat-error>
+              </mat-form-field>
+
+            </div>
+            <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+              <mat-form-field fxFlex="49">
+                  <input matInput placeholder="State" formControlName="cusstate">
+                <!-- <mat-select placeholder="State" style="width:100%" formControlName="cusstate">
+                  <mat-option *ngFor="let s of states" [value]="s.value">
+                    {{s.viewValue}}
+                  </mat-option>
+                </mat-select> -->
+              </mat-form-field>
+
+              <mat-form-field fxFlex="49">
+                <input matInput placeholder="GST Number" formControlName="gst">
+                <mat-icon matSuffix> local_phone </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <div formArrayName="items">
+        <div class="container" *ngFor="let item of salesform.controls.items['controls']; let i=index" fxLayout="row" fxLayoutAlign="start"
+          fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+          <div fxFlex="3">
+            <!-- {{i + 1}}  -->
+            <button mat-icon-button *ngIf="salesform.get('items').controls.length > 1" (click)="removeItem(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+
+          <div fxFlex="96" [formGroupName]="i">
+            <app-jobitemlist [group]="salesform.get('items').controls[i]" [myCallback]="theBoundCallback"  [PageType]="'service'" 
+            [DefaultValue]="jcloadItems[i]" [enablekfcess]="enableKFcess" (itemupdated)="itemlistupdated($event)">
+            </app-jobitemlist>
+          </div>
+        </div>
+      </div>
+      <div class="container" fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="end start">
+        <div fxFlex="25">
+          <button mat-icon-button (click)="addItems()"  *ngIf="!isDisableItemEdit">
+            <mat-icon>insert_photo</mat-icon>
+            Add another Item +
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+      <div fxLayout="row">
+        <button mat-icon-button (click)="addItems()">
+          <mat-icon>insert_photo</mat-icon>
+          Add another Item +
+        </button>
+        <span fxFlex></span>
+        <button mat-raised-button color="primary">Post</button>
+      </div> 
+    </mat-card-actions> -->
+
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <div fxLayout="column" fxLayoutAlign="start">
+
+
+        <div class="container" fxLayout="row" fxLayoutAlign="start" fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+          <mat-form-field fxFlex="12">
+            <input type="number" matInput placeholder="Sub Total" formControlName="totalvalue">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="10">
+            <input type="number" matInput placeholder="Discount %" formControlName="totdiscbtaxPer">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="10">
+            <input type="number" matInput placeholder="Discount ₹" formControlName="totdiscbtaxval">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="12">
+            <input type="number" matInput placeholder="Gross Amount" formControlName="grossamount">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="12">
+            <input type="number" matInput placeholder="Tax" formControlName="totaltax"  [readonly]="true">
+            <mat-error *ngIf="salesform.get('totaltax').hasError('required')">Not Valid</mat-error>
+            <mat-error *ngIf="salesform.get('totaltax').hasError('min')">Not Valid</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="12">
+            <input type="number" matInput placeholder="Cess" formControlName="kfCessAmount"  [readonly]="true">
+             
+          </mat-form-field>
+
+          <mat-form-field fxFlex="12" style="display: none">
+            <input type="number" matInput placeholder="Total+tax" formControlName="netamount">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="10" style="display: none">
+            <input type="number" matInput placeholder="Gift Card %" formControlName="totdiscPer">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="10" style="display: none">
+            <input type="number" matInput placeholder="Gift Card $" formControlName="totdiscval">
+          </mat-form-field>
+          
+          <mat-form-field fxFlex="10">
+            <input type="number" matInput placeholder="Round Off" formControlName="roundoff">
+          </mat-form-field>
+
+          <mat-form-field fxFlex="20">
+            <input type="number" matInput placeholder="Grand Total" formControlName="grandtotal">
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="container" fxLayout="row" fxLayoutAlign="start" fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+          <mat-form-field fxFlex="15">
+            <input type="number" matInput placeholder="Cash Recieved" formControlName="cashamt">
+            <mat-error *ngIf="salesform.get('cashamt').hasError('required')">Not Valid</mat-error>
+            <mat-error *ngIf="salesform.get('cashamt').hasError('min')">Not Valid</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="15">
+            <input type="number" matInput placeholder="Card" formControlName="cardamt">
+            <mat-error *ngIf="salesform.get('cardamt').hasError('required')">Not Valid</mat-error>
+            <mat-error *ngIf="salesform.get('cardamt').hasError('min')">Not Valid</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="15">
+            <input type="number" matInput placeholder="Credit" formControlName="creditamt">
+            <mat-error *ngIf="salesform.get('creditamt').hasError('required')">Not Valid</mat-error>
+            <mat-error *ngIf="salesform.get('creditamt').hasError('min')">Not Valid</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="10">
+            <input type="number" matInput placeholder="Advance" formControlName="advanceamt">
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input type="number" matInput placeholder="Cash Balance" formControlName="cashbalance">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+  <mat-card>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit"  [disabled]="!userAccess.Save" (click)="save(salesform.valid,false)">Save</button>
+      <button mat-raised-button color="primary" type="submit"  [disabled]="!userAccess.Save" (click)="save(salesform.valid,true)">Save & Print</button>
+      <button mat-raised-button color="primary" (click)="sessiondata.redirect('service/service/list');">List</button>
+      <button mat-raised-button color="primary" (click)="reset()">Clear</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

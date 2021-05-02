@@ -22,8 +22,12 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <SpaRoot>ClientApp\</SpaRoot>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <SpaRootApp1>ClientApp1\</SpaRootApp1>
+    <SpaRootApp2>ClientApp2\</SpaRootApp2>
+    
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRootApp1)node_modules\**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRootApp2)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
@@ -37,35 +41,86 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Content Remove="$(SpaRoot)**" />
-    <None Remove="$(SpaRoot)**" />
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <Content Remove="$(SpaRootApp1)**" />
+    <None Remove="$(SpaRootApp1)**" />
+    <None Include="$(SpaRootApp1)**" Exclude="$(SpaRootApp1)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\layout\layout\" />
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRootApp2)**" />
+    <None Remove="$(SpaRootApp2)**" />
+    <None Include="$(SpaRootApp2)**" Exclude="$(SpaRootApp2)node_modules\**" />
   </ItemGroup>
 
-  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+  <!--<ItemGroup>
+    <Folder Include="ClientApp2\src\assets\images\unsplash\" />
+    <Folder Include="ClientApp1\src\app\layout\layout\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ClientApp1\angular.json" />
+    <None Include="ClientApp1\e2e\tsconfig.json" />
+    <None Include="ClientApp1\package-lock.json" />
+    <None Include="ClientApp1\package.json" />
+    <None Include="ClientApp1\tsconfig.app.json" />
+    <None Include="ClientApp1\tsconfig.json" />
+    <None Include="ClientApp1\tsconfig.spec.json" />
+    <None Include="ClientApp1\tslint.json" />
+  </ItemGroup>-->
+
+  <!-- clientapp1 -->
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRootApp1)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRootApp1)" Command="npm install" />
   </Target>
 
+  <!-- clientapp2 -->
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRootApp2)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRootApp2)" Command="npm install" />
+  </Target>
+  
+
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    
+    <!-- clientapp1 -->
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod --base-href $(BaseHref)" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRootApp1)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRootApp1)" Command="npm run build -- --prod --base-href /admin/" />
+    <Exec WorkingDirectory="$(SpaRootApp1)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <DistFiles Include="$(SpaRootApp1)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRootApp1)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+
+    <!-- clientapp2 -->
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRootApp2)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRootApp2)" Command="npm run build -- --prod --base-href /web/" />
+    <Exec WorkingDirectory="$(SpaRootApp2)" Command="npm run build:ssr -- --prod --base-href /web/" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRootApp2)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRootApp2)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

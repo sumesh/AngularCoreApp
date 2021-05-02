@@ -1,0 +1,465 @@
+<div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+  <mat-card fxFlex="49">
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" (click)="openPrintAudit()">Print</button>
+      <button mat-raised-button color="primary"
+        (click)="sessiondata.redirect('delivery/deliveryin/list');">List</button>
+      <button mat-raised-button color="primary" (click)="sessiondata.redirect('delivery/deliveryin');">Delivery
+        In</button>
+      <button mat-raised-button color="primary" *ngIf="userAccess.Cancel && !invdata?.IsCancel" type="submit"
+        (click)="openCancelInvoice()">Cancel</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <mat-card fxFlex="49">
+    <mat-card-content>
+      <div *ngIf="invdata?.IsCancel" class="mat-text-warn"> <button mat-icon-button><i
+            class="material-icons">cancel</i></button> Cancelled On:{{invdata?.CDate}} Reason: {{invdata?.CReason}}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+  <mat-card fxFlex="49">
+    <mat-card-content>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+
+          <div class="text-label">
+            Delivery Number
+          </div>
+          <div class="text-value">
+            {{invdata?.InvoiceNumber}}
+          </div>
+
+        </div>
+
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Date
+          </div>
+          <div class="text-value">
+            {{invdata?.InvDate_S}} {{invdata.InvTime_S}}
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Delivery Type
+          </div>
+          <div class="text-value">
+            {{invdata?.DeliveryType}}
+          </div>
+        </div>
+
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Sales Executive
+          </div>
+          <div class="text-value">
+            {{invdata?.SalesMan}}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex="49">
+    <mat-card-content>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Branch Name
+          </div>
+          <div class="text-value" *ngIf="invdata?.Customer?.Name !=''">
+            {{invdata?.Customer?.Name}}
+          </div>
+          <div class="text-value" *ngIf="invdata?.Customer?.Name == ''">
+            ----
+          </div>
+        </div>
+
+        <div fxFlex.gt-xs="49" fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Remarks
+          </div>
+          <div class="text-value" *ngIf="invdata?.Comments !=''">
+            {{invdata?.Comments}}
+          </div>
+          <div class="text-value" *ngIf="invdata?.Comments == ''">
+            ----
+          </div>
+        </div>
+      </div>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <div fxFlex="100" class="mb-1">
+          <div class="text-label">
+            Address
+          </div>
+          <div class="text-value" *ngIf="invdata?.Customer?.Address !=''">
+            {{invdata?.Customer?.Address}}, PH:{{invdata?.Customer?.Phone}}
+          </div>
+          <div class="text-value" *ngIf="invdata?.Customer?.Address == ''">
+            ----
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card>
+
+  <mat-card-content>
+
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.Name}} - {{element.Code}} <span
+            class="text-md">{{element?.ServiceDesc}}</span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="invno">
+        <th mat-header-cell *matHeaderCellDef> InvNo </th>
+        <td mat-cell *matCellDef="let element"> {{element?.InvoiceNumber}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="qty">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element?.Qty | number:'1.2-2'}} </td>
+      </ng-container> 
+
+      <ng-container matColumnDef="ucode">
+        <th mat-header-cell *matHeaderCellDef> UOM </th>
+        <td mat-cell *matCellDef="let element"> {{element?.Ucode}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element?.Price| number:'1.2-2'}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element?.Total| number:'1.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cgst">
+        <th mat-header-cell *matHeaderCellDef> CGST% </th>
+        <td mat-cell *matCellDef="let element"> <span matTooltip="{{element?.CGSTAmount}}">
+            {{element?.CGST| number:'1.2-2'}}</span> </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="sgst">
+        <th mat-header-cell *matHeaderCellDef> SGST% </th>
+        <td mat-cell *matCellDef="let element"> <span matTooltip="{{element?.SGSTAmount}}">
+            {{element?.SGST| number:'1.2-2'}} </span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let element"> <span
+            matTooltip="Total:{{element?.Total| number:'1.2-2'}}  Discount:{{element?.Discount| number:'1.2-2'}}  Tax:{{element?.TotalTax| number:'1.2-2'}}">
+            {{element?.NAmt| number:'1.2-2'}}</span> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- <ngx-datatable class="material" [rows]="invtableitem" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
+      <ngx-datatable-column name="Description" [flexGrow]="2">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row.Name}} - {{row.Code}} <span class="text-md">{{row?.ServiceDesc}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="InvNo" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row.InvoiceNumber}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Quantity" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.Qty | number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="UOM" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.Ucode}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Price" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.Price| number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Amount" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.Total| number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="CGST%" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.CGST| number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="SGST %" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.SGST| number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Total" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{row?.NAmt| number:'1.2-2'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable> -->
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutWrap="wrap">
+
+      <div fxFlex.gt-sm="15" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1">
+        <h6 class="text-uppercase text-md ma-0 text-bold">Total Quantity</h6>
+        <h1 class="ma-0"> {{invdata?.InvTotalItems | number:'1.2-2'}}</h1>
+      </div>
+      <div fxFlex.gt-sm="15" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1">
+        <h6 class="text-uppercase text-md ma-0 text-bold">Total</h6>
+        <h1 class="ma-0"> {{invdata?.totalvalue | number:'1.2-2'}}</h1>
+      </div>
+
+      <div fxFlex.gt-sm="15" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1 ">
+        <h6 class="text-uppercase text-sm ma-0 text-bold">CGST</h6>
+        <h1 class="ma-0"> {{invdata?.CGSTAmt | number:'1.2-2'}}</h1>
+      </div>
+
+      <div fxFlex.gt-sm="15" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1">
+        <h6 class="text-uppercase text-sm ma-0 text-bold">SGST</h6>
+        <h1 class="ma-0"> {{invdata?.SGSTAmt | number:'1.2-2'}}</h1>
+      </div>
+
+      <div fxFlex.gt-sm="15" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1">
+        <h6 class="text-uppercase text-sm ma-0 text-bold">Round Off</h6>
+        <h1 class="ma-0"> {{invdata?.RoundOff | number:'1.2-2'}}</h1>
+      </div>
+
+      <div fxFlex.gt-sm="20" fxFlex.gt-xs="50" fxFlex="50" class="mt-1 mb-1">
+        <h6 class="text-uppercase text-sm ma-0 text-bold">Gross Amount</h6>
+        <h1 class="ma-0 mat-text-accent"> {{invdata?.grandtotal | number:'1.2-2'}}</h1>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+<div id="print-section" style="display: none">
+  <div *ngFor="let p of PrintListType; let i = index;">
+    <div [ngClass]="{'page-break':i>0}" style="clear: both;height: 1px;">&nbsp;</div>
+    <div size="A5">
+      <div class="pclear">
+        <table class="item-list   item-header">
+
+          <tr>
+            <td class="inv-left" style="width: 65.8%">
+              <h1 *ngIf="branchdtl?.Show_Cmp">{{branchdtl?.Cmp_MH}}
+                <span style="font-size: 15px">{{branchdtl?.Cmp_SH}}</span>
+              </h1>
+              <h1 *ngIf="!branchdtl?.Show_Cmp">&nbsp;</h1>
+              <div *ngIf="branchdtl?.Show_Br">
+                {{branchdtl?.Br_Adrs}},{{branchdtl?.Br_Loc}}-{{branchdtl?.Br_Pin}},PH:{{branchdtl?.Br_Ph}}</div>
+              <div *ngIf="!branchdtl?.Show_Br">&nbsp;</div>
+            </td>
+            <td class="inv-right">
+              <div class="invbold">DELIVERY IN</div>
+              <div>GSTIN:{{branchdtl?.Brn_GST}}</div>
+              <div>{{p.printType}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="br-1-b0">
+              <table style="width: 100%;font-size: 12px">
+                <tr>
+                  <td class="inv-width-10">Name:</td>
+                  <td class="inv-left head-width-60">{{invdata?.Customer?.Name}}</td>
+                  <td class="inv-width-10">Phone:</td>
+                  <td class="inv-left">{{invdata?.Customer?.Phone}}</td>
+                </tr>
+                <tr>
+                  <td>Address:</td>
+                  <td class="inv-left" colspan="3">{{invdata?.Customer?.Address}} {{invdata?.Customer?.State}}
+                    {{invdata?.Customer?.StateCode}}</td>
+                </tr>
+                <tr>
+                  <td class="inv-width-10">&nbsp;</td>
+                  <td class="inv-left">&nbsp;</td>
+                </tr>
+
+
+              </table>
+            </td>
+            <td class="br-1-b0">
+              <table style="float: left;margin-left:.2cm;font-size: 12px ">
+                <tr>
+                  <td>Delivery In Date</td>
+                  <td>:</td>
+                  <td class="inv-left"> {{invdata?.InvDate_S}} {{invdata.InvTime_S}} </td>
+                </tr>
+                <tr>
+                  <td>Delivery Note No</td>
+                  <td>:</td>
+                  <td class="inv-left"> {{invdata?.InvoiceNumber}} </td>
+                </tr>
+
+                <tr>
+                  <td>Remark</td>
+                  <td>:</td>
+                  <td class="inv-left">{{invdata?.DeliveryType}} {{invdata?.TandC}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+      <table class="item-list" style="min-height: 6cm">
+        <thead>
+        <tr class="items">
+          <th class="inv-width-4"> SNo.</th>
+          <th class="inv-width-9">HSN Code</th>
+          <th class="inv-width-30">Description</th>
+          <th class="inv-width-10">InvNo</th>
+          <th class="inv-width-4">Qty.</th>
+          <th class="inv-width-4">UQC</th>
+          <th class="inv-width-10">Price</th>
+          <th class="inv-width-10">Amount</th>
+          <!-- <th class="inv-width-6">Disc %</th> -->
+          <th class="inv-width-6">CGST %</th>
+          <th class="inv-width-6">SGST %</th>
+          <th class="inv-width-10">Total Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="items" *ngFor="let item of invdata?.Items; let i = index;">
+          <td class="inv-center" *ngIf="item?.HSNCode==''">&nbsp;</td>
+          <td class="inv-center" *ngIf="item?.HSNCode!=''">{{i+1}}</td>
+          <td class="inv-center">{{item?.HSNCode}} </td>
+          <td class="inv-left">{{item?.Name}} {{item?.Code}} {{item?.ServiceDesc}}</td>
+          <td class="inv-center">{{item?.InvoiceNumber}} </td>
+          <td class="inv-right">{{item?.Qty | number:'1.2-2'}}</td>
+          <td class="inv-center">{{item?.Ucode}}</td>
+          <td class="inv-right">{{item?.Price| number:'1.2-2'}}</td>
+          <td class="inv-right">{{item?.Total| number:'1.2-2'}}</td>
+          <!-- <td class="inv-right">2.00</td> -->
+          <td class="inv-right">{{item?.CGST| number:'1.2-2'}}</td>
+          <td class="inv-right">{{item?.SGST| number:'1.2-2'}}</td>
+          <td class="inv-right"> {{item?.Total| number:'1.2-2'}}</td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table class="item-list">
+
+        <table class="item-list">
+          <tr>
+            <td class="br-1-b0 br-b1" style="width: 65.8%">
+              <table class="item-list">
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="br-b1"> {{invdata?.TW}}
+                      <span style="float:right">Total Qty:{{invdata?.InvTotalItems | number:'1.2-2'}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width:60%" class="br-b0 br-r1">&nbsp;</td>
+                    <td class="br-b1">CGST Amount</td>
+                    <td class="br-b1 inv-right">{{invdata?.CGSTAmt | number:'1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3" class="br-r1" style="vertical-align: top">CHAPTER-71 IMITATION JEWELLERY EXEMPTED FROM EWAY BILL VIDE & No. 151. UNDER RULE 138 OF CGST ACT-2017</td>
+                    <td class="br-b1">SGST Amount</td>
+                    <td class="br-b1 inv-right">{{invdata?.SGSTAmt | number:'1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="height: 1.5cm;vertical-align: top" class="inv-right">{{branchdtl?.Bill_For}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="inv-right">{{invdata?.SalesMan}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </td>
+            <td class="br-1-b0 br-b1">
+              <table class="item-list">
+                <tfoot>
+                  <tr>
+                    <td class="br-b1 br-r1">
+                      Gross Amount </td>
+                    <td class="br-b1 inv-right" style="width: 32%">
+                      {{invdata?.totalvalue | number:'1.2-2'}}
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="br-b1 br-r1" >
+                      Gift Voucher </td>
+                    <td class="br-b1 inv-right">
+                      {{invdata?.totdiscbtaxval | number:'1.2-2'}}
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <td class="br-b1 br-r1" style="height: 34px">
+                      GST Amount </td>
+                    <td class="br-b1 inv-right">
+                      {{invdata?.totaltax | number:'1.2-2'}}
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="br-b1 br-r1">
+                      Bill Amount </td>
+                    <td class="br-b1 inv-right">
+                      {{invdata?.grossamount | number:'1.2-2'}}
+                    </td>
+                  </tr> -->
+                  <!-- <tr>
+                    <td class="br-b1 br-r1">
+                      Discount </td>
+                    <td class="br-b1 inv-right">
+                      {{invdata?.totdiscval | number:'1.2-2'}}
+                    </td>
+                  </tr> -->
+                  <!-- <tr>
+                    <td class="br-b1 br-r1">
+                      Advance Adjusted </td>
+                    <td class="br-b1 inv-right">
+                      {{invdata?.advanceamt | number:'1.2-2'}}
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <td class="br-r1" style="height: 75px">
+                      <b>Total Amount</b>
+                    </td>
+                    <td class="inv-right">
+                      <b> {{invdata?.grandtotal | number:'1.2-2'}}</b>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </table>
+      <div style="font-size:5px">Printed On :{{today}} </div>
+    </div>
+
+  </div>
+</div>

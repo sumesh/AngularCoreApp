@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>Invoice Import - {{description}}</h2>
+
+<mat-dialog-content class="mat-typography">
+	<div *ngIf="showCustomerSearch">
+		<form [formGroup]="fbcustsearch">
+			<div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="45">
+          <mat-select placeholder="From Branch" style="width:100%" formControlName="tobranchid">
+            <mat-option *ngFor="let s of branchlist" [value]="s">
+              {{s.BranchName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="fbcustsearch.get('tobranchid').hasError('required')">Branch Required.</mat-error>
+        </mat-form-field>
+
+      <mat-form-field fxFlex="20" class="mb-1">
+        <input matInput placeholder="Invoice Number" formControlName="invNo">
+      </mat-form-field>
+
+     
+    </div>
+
+     <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="finyear">
+      <th mat-header-cell *matHeaderCellDef> Fin. Year </th>
+      <td mat-cell *matCellDef="let element">  {{element?.RefFinyearName}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="invno">
+      <th mat-header-cell *matHeaderCellDef> Inv. No. </th>
+      <td mat-cell *matCellDef="let element" >
+          <span matTooltip="Date:{{element?.InvDate_S}} {{element?.InvTime_S}}"> {{element?.InvoiceNumber}} </span></td>
+    </ng-container>
+  <!-- Symbol Column -->
+ <!-- <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element">    </td>
+    </ng-container> -->
+    <!-- Weight Column -->
+    <ng-container matColumnDef="taxtype">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.invtype}} </td>
+    </ng-container> 
+
+    <!-- <ng-container matColumnDef="totalitem">
+      <th mat-header-cell *matHeaderCellDef>   Items </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalitem}} </td>
+    </ng-container>  -->
+    <!-- <ng-container matColumnDef="granttotal">
+      <th mat-header-cell *matHeaderCellDef> Grand Total </th>
+      <td mat-cell *matCellDef="let element"> {{element.grandtotal}} </td>
+    </ng-container>  -->
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element"> 
+         <button mat-icon-button (click)="redirectPage('view',element)">
+            <i class="material-icons">how_to_reg</i>
+          </button>
+         </td>
+    </ng-container> 
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+   
+    
+  </form>
+</div>
+ 
+</mat-dialog-content> 

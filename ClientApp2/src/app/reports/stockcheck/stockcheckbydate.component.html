@@ -1,0 +1,153 @@
+<form [formGroup]="fblist" (keydown.enter)="$event.preventDefault()">
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="15" class="mb-1">
+      <input matInput placeholder="Type to filter the name column..." formControlName="txtFilter">
+    </mat-form-field>
+    <!-- (keyup)='updateFilter($event)' -->
+    <mat-form-field fxFlex="10">
+      <mat-select placeholder="Category" style="width:100%" formControlName="categoryid">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option *ngFor="let s of categorylist" [value]="s.Brd">
+          {{s.Brd}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="10">
+      <mat-select placeholder="Group" style="width:100%" formControlName="itemgroup">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option *ngFor="let s of itemgrouplist" [value]="s.Grp">
+          {{s.Grp}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="15">
+      <mat-select placeholder="Match" style="width:100%" formControlName="ddlstockmatch">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option value="0">Equal</mat-option>
+        <mat-option value="-1">Less</mat-option>
+        <mat-option value="1">Excess</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="15">
+      <input matInput [matDatepicker]="picker_s" placeholder="Start Date" [min]="minDate" [max]="maxDate"
+        formControlName="startdate">
+      <!-- <button matSuffix [matDatepickerToggle]="picker"></button> -->
+      <mat-datepicker-toggle matSuffix [for]="picker_s"></mat-datepicker-toggle>
+      <mat-error
+        *ngIf="fblist.get('startdate').hasError('required') && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date Required.</mat-error>
+      <mat-error
+        *ngIf="fblist.get('startdate').errors?.date && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date is invalid.</mat-error>
+      <mat-datepicker #picker_s></mat-datepicker>
+    </mat-form-field>
+    <mat-card-actions fxFlex>
+      <button mat-raised-button color="primary" type="submit" (click)="getData(false)">View</button>
+      <button mat-raised-button color="primary" type="submit" (click)="print()">Print</button>
+      <button mat-raised-button color="primary" type="submit" (click)="exporttoexcel()">Download</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="20" class="mb-1" *ngIf="SaveEnable" [color]="itemfound">
+      <input matInput placeholder="Scan Itemcode" formControlName="txtItemCode" (keydown)="txtItemCode_onKeydown($event)" #txtItemCode>
+    </mat-form-field>
+    <mat-form-field fxFlex="10" class="mb-1" *ngIf="SaveEnable" >
+      <input type="number" matInput placeholder="Cur. Qty" formControlName="txtCurQty">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="10" class="mb-1" *ngIf="SaveEnable" >
+      <input type="number" matInput placeholder="Qty" formControlName="txtQty">
+    </mat-form-field>
+
+    <div fxFlex="25" class="mb-1" style="text-align: center;line-height: 50px">
+
+      <b *ngIf="StkMatch" style="color:rgb(41, 192, 41)">Stock Matching</b>
+      <b *ngIf="!StkMatch" style="color:rgb(212, 31, 31)">Stock Not Matching</b>
+    </div>
+    <mat-card-actions fxFlex *ngIf="SaveEnable">
+      <button mat-raised-button color="primary" type="submit" (click)="saveStockCheck()">Save</button>
+      <button mat-raised-button color="primary" type="submit" (click)="getData(true)">Reset Stock</button>
+
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="Brd">
+    <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element?.Brd}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Grp">
+    <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element?.Grp}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Code">
+    <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element?.Code}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Price">
+    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element?.Price}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Qty">
+    <mat-header-cell *matHeaderCellDef> Qty </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element?.Qty}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CurQty">
+    <mat-header-cell *matHeaderCellDef> Cur. Qty </mat-header-cell>
+    <mat-cell *matCellDef="let element" [satPopoverAnchor]="p" (click)="p.open()" >
+      <span   matTooltip="Click to Edit">
+        {{element?.CurQty}}
+      </span>
+      <sat-popover #p hasBackdrop xAlign="start" yAlign="start" (closed)="updateinlineedit_curqty(element, $event)">
+            <inline-edit [value]="element?.CurQty" [itemcode]="element?.Code"></inline-edit>  
+        </sat-popover>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="StkMatch">
+    <mat-header-cell *matHeaderCellDef> Stk. Match </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+
+      <button mat-icon-button *ngIf="element?.Qty==element?.CurQty">
+        <i class="material-icons" style="color:rgb(41, 192, 41)">arrow_forward</i>
+      </button>
+      <button mat-icon-button *ngIf="element?.Qty>element?.CurQty">
+        <i class="material-icons" style="color:rgb(212, 31, 31)">arrow_downward</i>
+      </button>
+      <button mat-icon-button *ngIf="element?.Qty<element?.CurQty">
+        <i class="material-icons" style="color:rgb(90, 155, 253)">arrow_upward</i>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
+
+<!-- [pageSize]="pageSize"  -->
+<mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+
+
+
+<div id="print-section" style="display: none">
+  <div *ngFor="let p of printpages;let islast = last" class="p_page">
+    <h5 class="p_brd">{{p?.Brd}}</h5>
+    <div style="float: left;width:31%;margin: 1%;background-color: rgb(245, 245, 245)" *ngFor="let c of p.Columns">
+
+      <table class="p_table">
+        <tr *ngFor="let r of c[0]" class="p_row">
+          <th *ngIf="r.IsGroup" colspan="4">{{r?.Grp}}</th>
+          <td *ngIf="r.IsGroup==false" style="padding-left: 2px;">{{r?.Code}}</td>
+          <td *ngIf="r.IsGroup==false" style="text-align: right">{{r?.Qty}}</td>
+          <td *ngIf="r.IsGroup==false" style="text-align: right">{{r?.CurQty}}</td>
+          <td *ngIf="r.IsGroup==false" style="text-align: right">{{r?.Price}}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="clear: both" [class.page-break]="!islast">&nbsp;</div>
+  </div>
+</div>

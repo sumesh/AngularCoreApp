@@ -1,0 +1,9 @@
+<ol class="breadcrumb">
+  <li>
+    <a routerLink="" class="breadcrumb"><i class="material-icons icon">home</i> Home</a>
+  </li>
+  <li *ngFor="let breadcrumb of breadcrumbs;let last = last" >
+    <a [routerLink]="[breadcrumb.url]"   [class.active-item]="last">&raquo; {{breadcrumb.label}}</a>
+  </li>
+</ol>
+ 

@@ -1,0 +1,203 @@
+<h2 mat-dialog-title>Customer {{showCustomerSearch?"Search":"Add"}} - {{description}}</h2>
+
+<mat-dialog-content class="mat-typography">
+	<div *ngIf="showCustomerSearch">
+		<form [formGroup]="fbcustsearch">
+			<div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+				<mat-form-field fxFlex="15" class="mb-1">
+					<input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20" class="mb-1">
+        <input matInput placeholder="Mobile No." formControlName="phone">
+      </mat-form-field>
+      <mat-form-field fxFlex="15" class="mb-1">
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20" class="mb-1">
+        <input matInput placeholder="Customer Number" formControlName="custno">
+      </mat-form-field>
+
+     
+    </div>
+
+     <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">  {{element.Name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+    </ng-container>
+  <!-- Symbol Column -->
+ <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+    </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+    </ng-container> 
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element"> 
+         <button mat-icon-button (click)="redirectPage('view',element)">
+            <i class="material-icons">how_to_reg</i>
+          </button>
+         </td>
+    </ng-container> 
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+    
+  </form>
+</div>
+<div  *ngIf="!showCustomerSearch">
+  <form [formGroup]="fbcustadd">
+     
+    <mat-card-content>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="First Name" formControlName="fname">
+          <mat-error *ngIf="fbcustadd.get('fname').hasError('required') ">First Name Required.</mat-error>
+          <mat-error
+            *ngIf="fbcustadd.get('fname').hasError('minlength') && (fbcustadd.get('fname').dirty || fbcustadd.get('fname').touched)">
+            First name must be at least 2 characters long.</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Last Name" formControlName="lname">
+          <mat-error *ngIf="fbcustadd.get('lname').hasError('required') ">Last Name Required.</mat-error>
+          <mat-error
+            *ngIf="fbcustadd.get('lname').hasError('minlength') && (fbcustadd.get('lname').dirty || fbcustadd.get('lname').touched)">
+            Last name must be at least 2 characters long.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Mobile Number" formControlName="phone1">
+          <mat-icon matSuffix>local_phone</mat-icon>
+          <mat-error
+            *ngIf="fbcustadd.get('phone1').hasError('required')">
+            Phone Number Required.</mat-error>
+          <mat-error
+            *ngIf="fbcustadd.get('phone1').hasError('minlength') && (fbcustadd.get('phone1').dirty || fbcustadd.get('phone1').touched)">
+            Phone Number must be at least 10 characters long.</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Whatsapp Number" formControlName="phone2">
+          <mat-icon matSuffix>message</mat-icon>
+          <mat-error
+            *ngIf="fbcustadd.get('phone2').hasError('required') && (fbcustadd.get('phone2').dirty || fbcustadd.get('phone').touched)">
+            Phone Number Required.</mat-error>
+          <mat-error
+            *ngIf="fbcustadd.get('phone2').hasError('minlength') && (fbcustadd.get('phone2').dirty || fbcustadd.get('phone2').touched)">
+            Phone Number must be at least 10 characters long.</mat-error>
+        </mat-form-field>
+
+      </div>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Email" formControlName="email1">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error
+            *ngIf="fbcustadd.get('email1').errors?.email && (fbcustadd.get('email1').dirty || fbcustadd.get('email1').touched)">
+            You must include a valid email address.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Work Email" formControlName="email2">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error
+            *ngIf="fbcustadd.get('email2').errors?.email && (fbcustadd.get('email2').dirty || fbcustadd.get('email2').touched)">
+            You must include a valid email address.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Address" #addresshint maxlength="100" formControlName="address">
+          <mat-icon matSuffix>place</mat-icon>
+          <mat-hint>{{ addresshint.value.length }} / 100</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="Postal Code" formControlName="postalcode">
+          <mat-icon matSuffix>local_post_office</mat-icon>
+          <mat-error
+            *ngIf="fbcustadd.get('postalcode').hasError('required') && (fbcustadd.get('postalcode').dirty || fbcustadd.get('postalcode').touched)">
+            Postal Code Required.</mat-error>
+          <mat-error
+            *ngIf="fbcustadd.get('postalcode').hasError('minlength') && (fbcustadd.get('postalcode').dirty || fbcustadd.get('postalcode').touched)">
+            Postal Code must be at least 6 characters long.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="49">
+          <input matInput [matAutocomplete]="auto_country" formControlName="country" title="Contry" placeholder="Contry">
+          <mat-autocomplete #auto_country="matAutocomplete"  [displayWith]="country_displayFn">
+            <mat-option *ngFor="let item of countryfilteredItem | async" [value]="item">
+              <span>{{item.CountryName }}</span>
+            </mat-option>
+          </mat-autocomplete>
+          <input type="hidden" formControlName="countryid" value="0" />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <input matInput [matAutocomplete]="auto_states" formControlName="states" title="State" placeholder="State">
+          <mat-autocomplete #auto_states="matAutocomplete"   [displayWith]="state_displayFn">
+            <mat-option *ngFor="let item of statesfilteredItem | async" [value]="item">
+              <span>{{item.StateName}}</span>
+            </mat-option>
+          </mat-autocomplete>
+          <input type="hidden" formControlName="stateid" value="0" />
+        </mat-form-field>
+
+      </div>
+      <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+        <mat-form-field fxFlex="49">
+            <input matInput [matAutocomplete]="auto_city" formControlName="city" title="State" placeholder="City">
+            <mat-autocomplete #auto_city="matAutocomplete"   [displayWith]="city_displayFn">
+              <mat-option *ngFor="let item of cityfilteredItem | async" [value]="item">
+                <span>{{item.CityName}}</span>
+              </mat-option>
+            </mat-autocomplete>
+            <input type="hidden" formControlName="cityid" value="0" />
+            <mat-error *ngIf="fbcustadd.get('city').hasError('required')">City Required.</mat-error> 
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <input matInput placeholder="GST Number" formControlName="gst">
+          <mat-icon matSuffix> work</mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <div class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0" *ngIf="!showCustomerSearch">
+        <button mat-raised-button color="primary"  [disabled]="!userAccess.Save || customersaving" (click)="saveCustomerData();">Save & Close </button>
+        <button mat-raised-button color="primary" (click)="showsearch(true);">Search</button>
+        <button mat-raised-button color="primary" (click)="close()">Close</button>
+    </div>
+  </form>
+</div>
+</mat-dialog-content>
+
+<mat-dialog-actions> 
+    <div fxFlex  *ngIf="showCustomerSearch">
+        <button mat-raised-button color="primary" (click)="getCustomerData();">Search</button>
+        <button mat-raised-button color="primary" *ngIf="userAccess.Save" (click)="showsearch(false);">Add New</button>
+        <button mat-raised-button color="primary" (click)="close()">Close</button>
+      </div>
+</mat-dialog-actions>

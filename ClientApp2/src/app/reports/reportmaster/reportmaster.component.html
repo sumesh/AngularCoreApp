@@ -1,0 +1,188 @@
+<form [formGroup]="fblist">
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+
+    <mat-form-field>
+      <!--  -->
+      <mat-select placeholder="Report Name" style="width:100%" formControlName="reportcode">
+        <mat-option *ngFor="let s of reportcodes" [value]="s.ReportCode">
+          {{s.ReportName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="reportmaster?.FromDate">
+      <input matInput [matDatepicker]="picker_s" placeholder="Start Date" formControlName="startdate" [min]="minDate"
+        [max]="maxDate">
+      <!-- <button matSuffix [matDatepickerToggle]="picker"></button> -->
+      <mat-datepicker-toggle matSuffix [for]="picker_s"></mat-datepicker-toggle>
+      <mat-error
+        *ngIf="fblist.get('startdate').hasError('required') && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date Required.</mat-error>
+      <mat-error
+        *ngIf="fblist.get('startdate').errors?.date && (fblist.get('startdate').dirty || fblist.get('startdate').touched)">
+        Start Date is invalid.</mat-error>
+      <mat-datepicker #picker_s></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="reportmaster?.ToDate">
+      <input matInput [matDatepicker]="picker_e" placeholder="End date" formControlName="enddate" [min]="minDate"
+        [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="picker_e"></mat-datepicker-toggle>
+      <mat-error
+        *ngIf="fblist.get('enddate').hasError('required') && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">
+        End Date Required.</mat-error>
+      <mat-error
+        *ngIf="fblist.get('enddate').errors?.date && (fblist.get('enddate').dirty || fblist.get('enddate').touched)">End
+        Date is invalid.</mat-error>
+      <mat-datepicker #picker_e></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="reportmaster?.ReportType">
+      <!--  -->
+      <mat-select placeholder="Report Type" style="width:100%" formControlName="reporttype">
+        <mat-option *ngFor="let s of reportTypes" [value]="s.Value">
+          {{s.ViewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="mb-1" *ngIf="reportmaster?.ItemCode">
+      <input matInput [matAutocomplete]="auto" formControlName="itemcode" mdTooltip="Tooltip!" title="Item Code"
+        placeholder="Code">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let item of filteredItem | async | slice : 0 : 50" [value]="item">
+          <span>{{item.Code}}</span>
+          <span> ({{item.Name}} - Qty {{item.Qty}}) </span>
+        </mat-option>
+      </mat-autocomplete>
+      <input type="hidden" formControlName="itemid" value="0" />
+    </mat-form-field>
+    <mat-form-field *ngIf="reportmaster?.Branch">
+      <!--  -->
+      <mat-select placeholder="Branch" style="width:100%" formControlName="branchids" multiple>
+        <mat-option *ngFor="let s of rptbranches" [value]="s.Value" (click)="brn_togglePerOne(brn_allSelected.viewValue)">
+          {{s.ViewValue}}
+        </mat-option>
+        <mat-option #brn_allSelected (click)="brn_toggleAllSelection()" [value]="0">All</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-card-actions fxFlex>
+      <button mat-raised-button color="primary" (click)="view()" [disabled]="!userAccess.Save">View</button>
+      <button mat-raised-button color="primary" (click)="download()">Download</button>
+      <button mat-raised-button color="primary" *ngIf="showprintbutton" (click)="print()">Print</button>
+    </mat-card-actions>
+
+
+  </mat-card>
+</form>
+
+<mat-card>
+
+  <mat-card-content fxLayout="column" fxLayoutGap="0rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <span *ngIf="!showtable"> No Records Found</span>
+    <div class="ps" *ngIf="showtable" [perfectScrollbar]="config" style="width:100%">
+      <!-- class="ps" [perfectScrollbar]="config"  -->
+      <table mat-table [dataSource]="dataSource" style="min-width: 100%;">
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
+          <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+          <td mat-cell *matCellDef="let element"> {{element[column.columnDef]}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+
+  <mat-card-content fxLayout="row" fxLayoutGap="0rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="30">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <mat-paginator fxFlex #paginator [pageSizeOptions]="[10,20,50]" [pageSize]="10" showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-content>
+
+</mat-card>
+
+<div id="print_dailysummay" style="display: none">
+  <h2>{{branchdtl?.BranchName}} </h2> 
+  <h4>Daily Tax wise Sales Summary Date-{{str_startdate}}</h4>
+  
+  <table class="p_table">
+    <thead>
+      <tr class="p_row">
+        <th>Invoice Type</th>
+        <th>Tax Per %</th>
+        <th>Gross Amount</th>
+        <th>Discount</th>
+        <th>Taxable Amount</th>
+        <th>Tax Amount</th>
+        <th>KFCess</th>
+        <th>Net Amount</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let r of downloaddata?.Table">
+      <tr class="p_row" [ngClass]="{'total':r?.TaxPer==='Total'}">
+        <td>{{r?.InvType}}</td>
+        <td>{{r?.TaxPer}}</td>
+        <td class="inv-right">{{r?.GrossAmt | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r?.Discount | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r?.TaxableAmt | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r?.TaxAmt| number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r?.KFCess| number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r?.NetAmt | number:'1.2-2'}}</td>
+      </tr>
+    </tbody>
+  </table>
+ <br>
+  <h4>Invoice wise Summary Date-{{str_startdate}}</h4>
+   
+  <table class="p_table">
+    <thead>
+      <tr class="p_row">
+        <th>Invoice No#</th>
+        <th>Bill Amount</th>
+        <th>Gift Voucher</th>
+        <th>Advance</th>
+        <th>Round Off</th>
+        <th>Total Amount</th>
+        <th>Cash</th>
+        <th>Card</th>
+        <th>Credit</th>
+        <th> GV #</th>
+        <th> Warranty #</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let r of downloaddata?.Table1">
+      <tr  *ngIf="getInvoiceType(r)" class="p_row highight">
+        <td colspan="11">{{r?.InvType}} - {{r?.Series}} </td>
+      </tr>
+      <tr class="p_row" [ngClass]="{'total':r?.InvNumber==='Total'}">
+        <td>{{r['InvNumber']}}</td>
+        <td  class="inv-right">{{r['BillAmount'] | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r['GiftVoucher'] | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r['AdvanceAdjusted'] | number:'1.2-2'}}</td>
+        <td class="inv-right">{{r['RoundOff'] | number:'1.2-2'}}</td>
+
+        <td  class="inv-right">{{r['TotalAmount'] | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r['Cash'] | number:'1.2-2'}}</td>
+        <td  class="inv-right">{{r['Card'] | number:'1.2-2'}}</td>
+        <td class="inv-right">{{r['Credit'] | number:'1.2-2'}}</td>
+        <td >{{r['GV #'] | number:'1.2-2'}}</td>
+        <td>{{r['Warranty #']}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="p_brd">&nbsp;</div>
+  <div>
+    <table class="p_table" style="width: 40%;float: right">
+      <tbody  *ngFor="let r of downloaddata?.Table2">
+        <tr class="p_row"   [ngClass]="{'total':r?.InvType==='Total'}">
+          <td>{{r['InvType']}}</td>
+          <td>{{r['TotalAmount'] | number:'1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

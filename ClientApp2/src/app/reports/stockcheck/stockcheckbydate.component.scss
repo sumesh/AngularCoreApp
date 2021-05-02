@@ -1,0 +1,22 @@
+.p_page{
+    width: 98%;
+    margin: 1%;
+    clear: both; 
+}
+.p_brd{
+    display: block;
+    clear: both;
+    width: 98%;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #000000;
+}
+.p_table
+{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+.p_table tr td,.p_table tr th
+{
+    border: 1px solid rgb(82, 55, 55);
+}

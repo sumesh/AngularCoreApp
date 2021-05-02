@@ -1,0 +1,29 @@
+
+.p_brd{
+    display: block;
+    clear: both;
+    width: 98%;
+    margin-top: 3px;
+    border-top: 1px solid #000000;
+}
+.p_table
+{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+.p_table tr.p_row td,.p_table tr.p_row th
+{
+    border: 1px solid #000000;
+}
+.p_table thead th{font-weight: bold;background-color: rgb(111, 143, 175)}
+.p_table .highight {background-color: #6C7A89;font-weight: bold}
+.p_table .total {background-color: rgb(212, 207, 207);font-weight: bold}
+
+.p_table td.inv-right{text-align: right}
+
+ 
+.mat-row, .mat-header-row {
+    min-width: 2800px;
+    width: 100%;
+  }

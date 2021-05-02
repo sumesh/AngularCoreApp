@@ -1,0 +1,101 @@
+<form [formGroup]="fblist">
+  <mat-card class="container" fxLayout="row" fxLayoutGap="1rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+    <mat-form-field fxFlex="25" class="mb-1">
+      <input matInput placeholder="Type to filter the name column..." formControlName="txtFilter">
+    </mat-form-field>
+    <!-- (keyup)='updateFilter($event)' -->
+    <mat-form-field fxFlex="25">
+      <mat-select placeholder="Category" style="width:100%" formControlName="categoryid">
+        <mat-option *ngFor="let s of categorylist" [value]="s.value">
+          {{s.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="25">
+      <mat-select placeholder="Group" style="width:100%" formControlName="itemgroup">
+        <mat-option value="ALL">ALL</mat-option>
+        <mat-option *ngFor="let s of itemgrouplist" [value]="s.Grp">
+          {{s.Grp}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-card-actions fxFlex>
+      <button mat-raised-button color="primary" type="submit" (click)="print()">Print</button>
+      <button mat-raised-button color="primary" type="submit" (click)="exporttoexcel()">Download</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<table mat-table [dataSource]="dataSource"> 
+  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">{{ column.cell(row) }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
+
+<!-- [pageSize]="pageSize"  -->
+<mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+<!-- <ngx-datatable class='material' [rows]='rows' [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+  [limit]="10">
+  <ngx-datatable-column name="Category" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span>{{row?.Brd}}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Group" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span>{{row?.Grp}}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Code" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span>{{row?.Code}}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Name" [flexGrow]="2">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Name}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Qty" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Qty | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Price" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.Price | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="CGST" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      {{row?.CGST | number:'1.2-2'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="SGST" [flexGrow]="1">
+    <ng-template ngx-datatable-cell-template let-row="row">
+      <span>{{row?.SGST}} </span>
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable> -->
+
+<div id="print-section" style="display: none">
+  <div *ngFor="let p of printpages;let islast = last" class="p_page">
+    <h5 class="p_brd">{{p?.Brd}}</h5>
+    <div style="float: left;width:31%;margin: 1%;background-color: rgb(245, 245, 245)" *ngFor="let c of p.Columns">
+
+      <table class="p_table">
+        <tr *ngFor="let r of c[0]" class="p_row">
+          <th *ngIf="r.IsGroup" colspan="3">{{r?.Grp}}</th>
+          <td *ngIf="r.IsGroup==false" style="padding-left: 2px;">{{r?.Code}}</td>
+          <td *ngIf="r.IsGroup==false" style="text-align: right">{{r?.Qty}}</td>
+          <td *ngIf="r.IsGroup==false" style="text-align: right">{{r?.Price}}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="clear: both" [class.page-break]="!islast">&nbsp;</div>
+  </div>
+</div>

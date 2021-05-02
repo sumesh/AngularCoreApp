@@ -1,0 +1,74 @@
+<div class="container" [formGroup]="itemlistForm" fxLayout="row" fxLayoutAlign="start" fxLayoutGap=".5rem" fxLayout.xs="column" fxLayoutGap.xs="0">
+   <mat-form-field fxFlex="10">  
+    <!-- [formControl]="itemcode" --> 
+    <input matInput [matAutocomplete]="auto" formControlName="itemcode" 
+    mdTooltip="Tooltip!" title="Item Code" placeholder="Code" #inputitemcode>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let item of filteredItem | async | slice : 0 : 50" [value]="item">
+        <span>{{item.Code }}</span>
+        <span> ({{item.Name}} - Qty {{item.Qty}}) </span>
+      </mat-option>
+    </mat-autocomplete>
+    <input type="hidden" formControlName="itemid" value="0"/>
+    <input type="hidden" formControlName="tid" value="0"/>
+    <input type="hidden" formControlName="ivid" value="0"/>
+  </mat-form-field>
+  
+  <mat-form-field fxFlex="6">
+    <input matInput mdTooltip="Tooltip!" placeholder="Name" formControlName="itemname">
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="5">
+    <input type="number" matInput formControlName="qty" placeholder="Qty"   >
+    <!-- min="0"   pattern="^[0-9]$" -->
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="10">
+    <input type="number" type="number" matInput formControlName="price" placeholder="Price ₹">
+    <input type="number"   matInput  formControlName="mrp" style="display:none">  
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="5" style="display: none">
+    <input matInput formControlName="uom" placeholder="Uom">
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="5">
+    <input type="number" matInput formControlName="discountper" placeholder="Disc %">
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="5">
+    <input type="number" matInput formControlName="discount" placeholder="Disc ₹">
+  </mat-form-field>
+  
+  <mat-form-field fxFlex="10">
+    <input type="number" matInput formControlName="total" placeholder="Total">
+  </mat-form-field>
+  
+  <mat-form-field  fxFlex="16" *ngIf="enableIgst">
+    <input type="number" matInput formControlName="gst" placeholder="IGST">
+    <input type="hidden"   formControlName="gst_back">
+  </mat-form-field>
+
+  <mat-form-field  fxFlex="8" *ngIf="!enableIgst">
+    <input type="number" matInput formControlName="sgst" placeholder="SGST">
+    <input type="hidden"   formControlName="sgst_back">
+  </mat-form-field>
+
+  <mat-form-field  fxFlex="8"  *ngIf="!enableIgst"> 
+    <input type="number" matInput formControlName="cgst" placeholder="CGST">
+    <input type="hidden"   formControlName="cgst_back">
+  </mat-form-field>
+
+  <mat-form-field  fxFlex="8">
+    <input type="number" matInput formControlName="kfcess" placeholder="KFCess">
+    <input type="hidden"   formControlName="kfcess_back">
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="10">
+    <input type="number" matInput formControlName="grossamt" placeholder="Gross. Amt.">
+  </mat-form-field>
+ 
+  <mat-form-field fxFlex="5"> 
+    <input type="number"   matInput  formControlName="weight" placeholder="Weight">
+  </mat-form-field>  
+</div>

@@ -1,0 +1,185 @@
+<div *ngIf="!showdashboard && showloading">
+  Welcome ....  Loading....
+</div>
+<div *ngIf="showdashboard">
+<div fxLayout="row" fxLayoutWrap="wrap" >
+ 
+  <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let obj of chart_overall">
+    <mat-card class="card-widget mat-card {{obj?.widClass}}">
+      <div mat-card-widget>
+        <div mat-card-float-icon>
+          <mat-icon>{{obj?.Icon}}</mat-icon>
+        </div>
+        <div class="pl-0">
+          <h2 mat-card-widget-title>{{obj?.CNT}}</h2>
+          <p>{{obj?.InvType}}</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayout.xs="column">
+  <div fxFlex.gt-sm="66.66" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Last 30 Days
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="100" baseChart class="chart" [datasets]="chart_month_sale_data"
+          [labels]="chart_month_sale_label" [options]="ComboChartOptions" [legend]="comboChartLegend"
+          [chartType]="barChartType"></canvas>
+
+        <!-- [colors]="chartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="200" baseChart class="chart" [data]="chart_month_total_data" [labels]="chart_month_total_label"
+          [options]="doughnutOptions" [chartType]="pieChartType" [colors]="doughnutChartColors"></canvas>
+
+        <!-- [colors]="doughnutChartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayout.xs="column">
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Item
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="200" baseChart class="chart" [data]="chart_itemcode_data" [labels]="chart_itemcode_label"
+          [options]="doughnutOptions" [chartType]="doughnutChartType" [colors]="doughnutChartColors"></canvas>
+
+        <!-- [colors]="doughnutChartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Category
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="200" baseChart class="chart" [data]="chart_itemcategory_data" [options]="doughnutOptions"
+          [labels]="chart_itemcategory_label" [chartType]="doughnutChartType">
+        </canvas>
+
+        <!-- [colors]="doughnutChartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Sales Executive
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="200" baseChart class="chart" [data]="chart_saleman_data" [options]="doughnutOptions"
+          [labels]="chart_saleman_label" [chartType]="pieChartType" [colors]="doughnutChartColors">
+        </canvas>
+
+        <!-- [colors]="doughnutChartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div style="display: none">
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayout.xs="column">
+
+  <div fxFlex.gt-sm="66.66" fxFlex.gt-xs="50" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Yearly
+      </mat-card-subtitle>
+      <mat-card-content>
+        <canvas height="100" baseChart class="chart" [datasets]="chart_fy_sale_data" [labels]="chart_fy_sale_label"
+          [options]="ComboChartOptions" [legend]="comboChartLegend" [chartType]="barChartType"></canvas>
+
+        <!-- [colors]="chartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-subtitle fxLayout="row" fxLayoutAlign="start center">
+        Yealy
+      </mat-card-subtitle>
+
+      <mat-card-content>
+        <canvas height="200" baseChart class="chart" [data]="chart_fy_total_data" [options]="doughnutOptions"
+          [labels]="chart_fy_total_label" [chartType]="pieChartType" [colors]="doughnutChartColors">
+        </canvas>
+
+        <!-- [colors]="doughnutChartColors" -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+</div>
+<div style="display: none">
+<div fxLayout="row" fxLayoutWrap="wrap" fxLayout.xs="column" >
+  <div fxFlex.gt-sm="66.66%" fxFlex="100">
+
+    <table mat-table [dataSource]="rows">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="project">
+        <th mat-header-cell *matHeaderCellDef> Project </th>
+        <td mat-cell *matCellDef="let element"> {{element.project}} </td>
+      </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Due Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date | date: 'MMMM dd'}} </td>
+      </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef> Progress </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-progress-bar mode="determinate" value="{{element['progress']}}" color="primary"></mat-progress-bar>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+    <mat-card>
+      <mat-card-title>Delivery Note Pending</mat-card-title>
+      <mat-card-subtitle>Stories posted today</mat-card-subtitle>
+      <hr>
+      <mat-list>
+        <ng-template let-item let-last="last" ngFor [ngForOf]="messages">
+          <mat-list-item>
+            <h3 matLine> {{item.from}} </h3>
+            <p matLine> {{item.subject}} - {{item.message}} </p>
+          </mat-list-item>
+        </ng-template>
+      </mat-list>
+    </mat-card>
+  </div>
+</div>
+
+</div>
+</div>
+
