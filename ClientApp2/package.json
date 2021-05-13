@@ -34,7 +34,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --base-href /web/ --serve-path /",
-    "build": "ng build --prod --base-href /web/",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
