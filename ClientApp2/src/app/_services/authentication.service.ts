@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, tap, catchError } from "rxjs/operators";
 
 import { HttpClient } from '@angular/common/http';
-import { Response } from '@angular/http/src/static_response';
+//import { Response } from '@angular/http';
 import { LocalDataService } from './localdata.service'
 
 @Injectable()
@@ -18,7 +18,7 @@ export class AuthenticationService {
 
     let body: any = { "username": username, "password": password };
     let url = "api/login/";
-    let response: any;
+    //let response: any;
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // let options = new RequestOptions({ headers: headers });
     // const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
@@ -51,7 +51,7 @@ export class AuthenticationService {
  
     let param: any = { "UserID": body.UserID, "currentpassword": currentpassword, "password": password };
     let url = "api/user/changepassword/";
-    let response: any; 
+    //let response: any; 
 
     return this.http.post(url, param).pipe(
       tap( // Log the result or error

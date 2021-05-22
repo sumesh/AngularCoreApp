@@ -24,7 +24,7 @@ export class SaleOrderListComponent implements OnInit {
 
   displayedColumns: string[] = ['InvoiceNumber', 'invdatetime', 'invtotal', 'discount', 'tax', 'grossamount', 'giftcard', 'grandtotal', 'action'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
   tableOffset: number = 0;
   pageSize: number = 10;
 

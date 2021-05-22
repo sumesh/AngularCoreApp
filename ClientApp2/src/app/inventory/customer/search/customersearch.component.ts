@@ -28,7 +28,7 @@ export class CustomerSearchComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'address', 'email', 'phone', 'action'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
 
   description: 'Customer Search';
   public showCustomerSearch: boolean = true;

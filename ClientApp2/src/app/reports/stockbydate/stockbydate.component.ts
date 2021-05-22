@@ -44,7 +44,7 @@ export class StockByDateReportComponent implements OnInit {
 
   displayedColumns = this.columns.map(c => c.columnDef);
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
 
   constructor(
     private fb: FormBuilder,

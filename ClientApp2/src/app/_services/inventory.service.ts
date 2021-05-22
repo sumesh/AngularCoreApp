@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import {  MyCustomHttp } from '../_helpers'
 
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { map, tap, catchError } from "rxjs/operators";
 

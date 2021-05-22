@@ -24,7 +24,7 @@ export class PurchaseReturnListComponent implements OnInit {
 
   displayedColumns: string[] = ['srinvno', 'invdatetime', 'invno', 'mode', 'invtotal', 'totdiscbtaxval','sgst', 'cgst','igst','kfcess','roundoff', 'grandtotal', 'action'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
   tableOffset: number = 0;
   pageSize: number = 10;
 

@@ -45,8 +45,8 @@ export class StockCheckByDateReportComponent implements OnInit {
 
   displayedColumns: string[] = ['Brd', 'Grp', 'Code', 'Price', 'Qty', 'CurQty', 'StkMatch']; //= this.columns.map(c => c.columnDef);
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('txtItemCode') txtItemCode: ElementRef;
+  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild('txtItemCode',{static:false}) txtItemCode: ElementRef;
   constructor(
     private fb: FormBuilder,
     private invservice: InventoryService,

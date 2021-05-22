@@ -12,39 +12,39 @@ export const AppRoutes: Routes = [
   },
   children: [{
     path: '',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },   {
     path: 'sale',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Sale'
     }
   },{
     path: 'purchase',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Purchase'
     }
   },{
     path: 'purchasereturn',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Purchase Return'
     }
   }, {
     path: 'service',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Service'
     }
   }, {
     path: 'delivery',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Delivery'
     }
@@ -52,7 +52,7 @@ export const AppRoutes: Routes = [
   {
     path: 'reports',
     canActivate: [AuthGuard],
-    loadChildren: './reports/reports.module#ReportsModule',
+    loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
     data: {
       breadcrumb: 'Reports'
     }
@@ -60,14 +60,14 @@ export const AppRoutes: Routes = [
   , {
     path: 'accounts',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Accounts'
     }
   } , {
     path: 'products',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Products'
     }
@@ -75,7 +75,7 @@ export const AppRoutes: Routes = [
   , {
     path: 'invoice',
     canActivate: [AuthGuard],
-    loadChildren: './inventory/inventory.module#InventoryModule',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule),
     data: {
       breadcrumb: 'Invoice'
     }
@@ -86,7 +86,7 @@ export const AppRoutes: Routes = [
     component: AuthLayoutComponent,
     children: [{
       path: 'session',
-      loadChildren: './session/session.module#SessionModule'
+      loadChildren: () => import('./session/session.module').then(m => m.SessionModule)
     }]
   },
   {
@@ -95,7 +95,7 @@ export const AppRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [{
       path: 'changepassword',
-      loadChildren: './session/session.module#SessionModule'
+      loadChildren: () => import('./session/session.module').then(m => m.SessionModule)
     }]
   },
   {

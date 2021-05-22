@@ -26,7 +26,7 @@ export class DeliveryInListComponent implements OnInit {
  
   displayedColumns: string[] = ['InvoiceNumber', 'invdatetime', 'deliverytype', 'frombr', 'invtotal'  , 'action'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
   tableOffset: number = 0;
   pageSize: number = 10;
 
