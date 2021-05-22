@@ -20,7 +20,7 @@ export class InvoiceImportSearchComponent implements OnInit {
   branchlist: any = [];
   displayedColumns: string[] = ['finyear', 'invno', 'taxtype', 'action'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   description: 'Invoice Search';
   public showCustomerSearch: boolean = true;

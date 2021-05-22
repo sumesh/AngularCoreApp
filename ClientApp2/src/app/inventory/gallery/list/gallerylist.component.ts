@@ -25,7 +25,7 @@ export class GalleryListComponent implements OnInit {
   itemgrouplist = [];
   products: any = [];
   num = 1;
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   pageIndex: number = 0;
   length = 100;
   pageSize = 20;

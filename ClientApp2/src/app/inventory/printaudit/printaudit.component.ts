@@ -22,7 +22,7 @@ export class PrintAuditComponent implements OnInit {
   // @Output() itemupdated: EventEmitter<any> = new EventEmitter();
   // @Input('pagetype') public pageType: string;
   // @Input('invid') public invid: string; 
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private fb: FormBuilder, 
     public dialogRef: MatDialogRef<PrintAuditComponent>,

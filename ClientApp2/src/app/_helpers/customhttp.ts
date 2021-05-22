@@ -19,6 +19,7 @@ import { AlertService } from '../_services/alert.service'
 import { LocalDataService } from '../_services/localdata.service'
 
 
+@Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

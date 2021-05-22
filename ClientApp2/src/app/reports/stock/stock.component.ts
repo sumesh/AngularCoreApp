@@ -43,7 +43,7 @@ export class StockReportComponent implements OnInit {
 
   displayedColumns = this.columns.map(c => c.columnDef);
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private fb: FormBuilder,

@@ -23,7 +23,7 @@ export class ItemListComponent implements OnInit, AfterViewInit {
   @Input('enablekfcess') public enableKFcess: boolean;
   @Input('enableIgst') public enableIgst: boolean;
   @Input('enableTax') public enableTax: boolean;
-  @ViewChild('inputitemcode',{static:false}) inputitemcode: ElementRef;
+  @ViewChild('inputitemcode') inputitemcode: ElementRef;
   @Input("DefaultValue") public currentPageDefaultValue: any;
   @Input()
   public myCallback() {

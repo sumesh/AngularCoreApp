@@ -29,7 +29,7 @@ export class DeliveryOutListComponent implements OnInit {
  
   displayedColumns: string[] = ['InvoiceNumber', 'invdatetime', 'deliverytype', 'frombr', 'invtotal'  , 'action'];
  dataSource = new MatTableDataSource<any>();
- @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+ @ViewChild(MatPaginator) paginator!: MatPaginator;
   tableOffset: number = 0;
   pageSize: number = 10;
 

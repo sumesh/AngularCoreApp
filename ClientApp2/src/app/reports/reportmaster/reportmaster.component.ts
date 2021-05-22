@@ -15,7 +15,7 @@ export class ReportMasterComponent implements OnInit {
 
   public config: PerfectScrollbarConfigInterface = {};
   //@ViewChild(PerfectScrollbarComponent) componentRef?: PerfectScrollbarComponent;
-  @ViewChild(PerfectScrollbarDirective,{static:false}) directiveRef?: PerfectScrollbarDirective;
+  @ViewChild(PerfectScrollbarDirective) directiveRef?: PerfectScrollbarDirective;
 
   public fblist: FormGroup;
   userAccess: any = {};
@@ -46,8 +46,8 @@ export class ReportMasterComponent implements OnInit {
   branchdtl: any = {};
   displayedColumns: string[] = this.columns.map(c => c.columnDef);
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
-  @ViewChild('brn_allSelected',{static:false}) private brn_allSelected: MatOption;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('brn_allSelected') private brn_allSelected: MatOption;
   // Report Type
   invoicetype: string = '';
   invoiceseries: string = '';

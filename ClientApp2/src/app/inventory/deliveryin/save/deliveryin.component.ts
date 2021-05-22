@@ -69,7 +69,7 @@ export class DeliveryInComponent implements OnInit {
   displayedColumns: string[] = ['select','name', 'invno', 'qty', 'ucode', 'price', 'amount', 'action'];
   dataSource = new MatTableDataSource<any>();
   selection = new SelectionModel<any>(true, []);
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   enableKFcess: boolean = true;
 

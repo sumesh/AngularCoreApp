@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   displayedColumns: string[] = ['project', 'date', 'progress'];
   dataSource = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator,{static: false}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   rows = [];
 
   // Shared chart options
