@@ -5,7 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { AlertService, InventoryService, LocalDataService } from '../../_services/index';
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'app-jobitemlist',
   templateUrl: './jobitems.component.html',
   styleUrls: ['./jobitems.component.scss'],

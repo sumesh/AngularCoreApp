@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from '../_services/index';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'alert',
     templateUrl: 'alert.component.html'
 })

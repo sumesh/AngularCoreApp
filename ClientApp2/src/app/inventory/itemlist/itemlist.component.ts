@@ -8,7 +8,7 @@ import { CustomValidators } from 'ng2-validation';
 import { AlertService, InventoryService, LocalDataService } from '../../_services/index';
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'app-itemlist',
   templateUrl: './itemlist.component.html',
   styleUrls: ['./itemlist.component.scss'],

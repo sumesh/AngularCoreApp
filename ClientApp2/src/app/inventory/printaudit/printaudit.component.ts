@@ -8,7 +8,7 @@ import {FormBuilder, Validators, FormGroup,FormControl} from "@angular/forms";
 import { AlertService, InventoryService, LocalDataService } from '../../_services/index';
 
 @Component({
-  moduleId: module.id,
+ // moduleId: module.id,
   selector: 'app-printaudit',
   templateUrl: './printaudit.component.html',
   styleUrls: ['./printaudit.component.scss'],

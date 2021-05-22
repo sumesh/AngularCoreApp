@@ -31,7 +31,8 @@
     .datatable-body-row {
       &.active,
       &.active .datatable-row-group {
-        @include _mat-toolbar-color($primary);
+        //@include _mat-toolbar-color($primary);
+        background-color: darken(mat.get-color-from-palette($primary), 2%);
       }
 
       &.active:hover,
@@ -77,7 +78,8 @@
 
       &.active,
       &.active .datatable-row-group {
-        @include _mat-toolbar-color($primary);
+        //@include mat-toolbar-color($primary);
+        background-color: darken(mat.get-color-from-palette($primary), 2%);
       }
 
       &.active:hover,
@@ -211,7 +213,8 @@
     .datatable-body-row {
       &.active,
       &.active .datatable-row-group {
-        @include _mat-toolbar-color($dark-primary);
+        //@include mat-toolbar-color($dark-primary);
+        background-color: darken(mat.get-color-from-palette($primary), 2%);
       }
 
       &.active:hover,
@@ -254,7 +257,8 @@
 
       &.active,
       &.active .datatable-row-group {
-        @include _mat-toolbar-color($dark-primary);
+        //@include mat-toolbar-color($dark-primary);
+        background-color: darken(mat.get-color-from-palette($primary), 2%);
       }
 
       &.active:hover,

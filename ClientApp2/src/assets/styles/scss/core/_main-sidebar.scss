@@ -2,8 +2,8 @@
 /* $sidebar-panel
  ------------------------------------------*/
 $mat-toolbar-height-desktop: 64px !default;
-56px-portrait: 56px !default;
-56px-landscape: 48px !default;
+$mat-toolbar-height-mobile-portrait: 56px !default;
+$mat-toolbar-height-mobile-landscape: 48px !default;
 
 mat-sidenav.sidebar-panel {
   position: absolute!important;

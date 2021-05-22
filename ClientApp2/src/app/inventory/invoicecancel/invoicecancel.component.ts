@@ -5,7 +5,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms"
 import { AlertService, InventoryService, LocalDataService } from '../../_services/index';
 
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'app-invoicecancel',
   templateUrl: './invoicecancel.component.html',
   styleUrls: ['./invoicecancel.component.scss'],
