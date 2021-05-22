@@ -1,8 +1,9 @@
+@use '~@angular/material' as mat;
 /* $sidebar-panel
  ------------------------------------------*/
 $mat-toolbar-height-desktop: 64px !default;
-$mat-toolbar-height-mobile-portrait: 56px !default;
-$mat-toolbar-height-mobile-landscape: 48px !default;
+56px-portrait: 56px !default;
+56px-landscape: 48px !default;
 
 mat-sidenav.sidebar-panel {
   position: absolute!important;
@@ -34,7 +35,7 @@ mat-sidenav.sidebar-panel {
   }
   .mat-list-item.open > .mat-list-item-content {
     max-height: 2000px;
-    background: mat-color($background, 'hover');
+    background: mat.get-color-from-palette($background, 'hover');
   }
   .mat-nav-list a {
     display: flex;
@@ -149,10 +150,10 @@ mat-sidenav.sidebar-panel {
     > .app-inner {
       display: table;
       border-collapse: separate;
-      min-height: calc(100vh - #{$mat-toolbar-height-desktop});
+      min-height: calc(100vh - #{64px});
       height: auto;
-      @media ($mat-xsmall) {
-        min-height: calc(100vh - #{$mat-toolbar-height-mobile-portrait});
+      @media (max-width: 599px) {
+        min-height: calc(100vh - #{56px-portrait});
       }
       .mat-drawer-content > .ps.ps--theme_default {
         overflow: visible!important;
@@ -230,7 +231,7 @@ mat-sidenav.sidebar-panel {
       .sub-menu {
         display: none!important;
         visibility: hidden;
-        background: mat-color($background, 'card');
+        background: mat.get-color-from-palette($background, 'card');
         box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
         position: absolute;
         top: 0;
@@ -319,7 +320,7 @@ mat-sidenav.sidebar-panel {
   .app-dark {
     &.compact-sidebar, .compact-sidebar {
       mat-sidenav.sidebar-panel .sub-menu {
-        background: mat-color($dark-background, card);
+        background: mat.get-color-from-palette($dark-background, card);
       }
     }
   }

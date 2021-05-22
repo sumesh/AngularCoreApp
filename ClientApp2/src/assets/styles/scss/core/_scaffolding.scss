@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 /* $scaffolding
  ------------------------------------------*/
 html {
@@ -25,8 +26,8 @@ body {
   margin: 0;
   padding: 0;
   font-weight: $font-weight-base;
-  @include mat-typography-level-to-styles($config, body-1);
-  color: rgba(mat-color($foreground, base), 0.87);
+  @include mat.typography-level($config, body-1);
+  color: rgba(mat.get-color-from-palette($foreground, base), 0.87);
   line-height: 1.5;
   /*font-family: $mat-font-family;*/
   &.pace-done {

@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -7,13 +8,13 @@
   min-height: 32px;
   margin-bottom: $gutter;
   padding: ($gutter/2);
-  border: dashed 1px mat-color($foreground, divider);
+  border: dashed 1px mat.get-color-from-palette($foreground, divider);
   background-color: white;
   @include rounded($border-radius-base);
 }
 
 .app-dark :host {
   .my-drop-zone {
-    background: mat-color($dark-background, card);
+    background: mat.get-color-from-palette($dark-background, card);
   }
 }

@@ -1,14 +1,14 @@
 /* $main-panel
  ------------------------------------------*/
 $mat-toolbar-height-desktop: 64px !default;
-$mat-toolbar-height-mobile-portrait: 56px !default;
-$mat-toolbar-height-mobile-landscape: 48px !default;
+56px-portrait: 56px !default;
+56px-landscape: 48px !default;
 
 .app-inner {
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: calc(100vh - #{$mat-toolbar-height-desktop});
+  height: calc(100vh - #{64px});
   @include flexbox;
   @include flex-direction(row);
 }
@@ -17,9 +17,9 @@ $mat-toolbar-height-mobile-landscape: 48px !default;
 // The height for mobile landscape devices has been ignored since relying on `@media orientation`
 // is causing issues on devices with a soft-keyboard.
 // See: https://material.io/guidelines/layout/structure.html#structure-app-bar
-@media ($mat-xsmall) {
+@media (max-width: 599px) {
   .app-inner {
-    height: calc(100vh - #{$mat-toolbar-height-mobile-portrait});
+    height: calc(100vh - #{56px-portrait});
   }
 }
 

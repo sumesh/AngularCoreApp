@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 /* $error-pages
  ------------------------------------------*/
 .session {
@@ -44,7 +45,7 @@
   font-weight: 900;
   display: inline-table;
   position: relative;
-  background: mat-color($primary);
+  background: mat.get-color-from-palette($primary);
   color: #fff;
   padding: 0 $gutter;
   border-radius: 8px;
@@ -60,7 +61,7 @@
     position: absolute;
     pointer-events: none;
     border-color: rgba(0, 0, 0, 0);
-    border-top-color: mat-color($primary);
+    border-top-color: mat.get-color-from-palette($primary);
     border-width: 8px;
     margin-left: -8px;
   }

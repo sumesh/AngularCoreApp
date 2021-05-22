@@ -1,8 +1,9 @@
+@use '~@angular/material' as mat;
 /* $listgroup
  ------------------------------------------*/
 mat-list, mat-nav-list {
   mat-list-item, a[mat-list-item] {
-    color: rgba(mat-color($foreground, base), 0.87);
+    color: rgba(mat.get-color-from-palette($foreground, base), 0.87);
   }
 }
 mat-list-item, .mat-list-item {
@@ -22,13 +23,13 @@ mat-list-item, .mat-list-item {
   }
 }
 mat-divider {
-  border-top: 1px solid mat-color($foreground, divider)!important;
+  border-top: 1px solid mat.get-color-from-palette($foreground, divider)!important;
 }
 mat-list mat-list-item [mat-list-avatar], mat-list a[mat-list-item] [mat-list-avatar], mat-nav-list mat-list-item [mat-list-avatar], mat-nav-list a[mat-list-item] [mat-list-avatar] {
   min-width: 40px;
 }
 mat-list-item.active > .mat-list-item-content {
-  background: mat-color($background, 'hover');
+  background: mat.get-color-from-palette($background, 'hover');
 }
 mat-list mat-list-item .mat-list-item-content,
 mat-list a[mat-list-item] .mat-list-item-content,

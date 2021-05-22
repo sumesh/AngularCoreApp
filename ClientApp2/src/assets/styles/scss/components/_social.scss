@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -29,7 +30,7 @@
       bottom: 0;
       left: 42px;
       width: 1px;
-      background-color: mat-color($foreground, divider);
+      background-color: mat.get-color-from-palette($foreground, divider);
     }
     .mat-card {
       background-color: transparent;

@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 .mat-tab-label {
-	color: rgba(mat-color($foreground, base), 0.87);
+	color: rgba(mat.get-color-from-palette($foreground, base), 0.87);
 	align-items: center;
 	display: flex;
 	justify-content: center;
 }
 
 .app-dark .mat-tab-label {
-	color: mat-color($dark-foreground, base);
+	color: mat.get-color-from-palette($dark-foreground, base);
 }

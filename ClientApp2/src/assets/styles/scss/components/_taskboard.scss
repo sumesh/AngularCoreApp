@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -44,9 +45,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    @include mat-elevation(1);
-    color: rgba(mat-color($foreground, base), 0.87);
-    background: mat-color($background, card);
+    @include mat.elevation(1);
+    color: rgba(mat.get-color-from-palette($foreground, base), 0.87);
+    background: mat.get-color-from-palette($background, card);
     border-radius: $border-radius-base;
     padding: $gutter;
     margin-bottom: ($spacer/2);
@@ -67,24 +68,24 @@
     right: 6px;
   }
   .taskboard-task.task-status-success::after {
-    border-top-color: map-get($mat-green, A700);
-    border-right-color: map-get($mat-green, A700);
-    border-left-color: map-get($mat-green, A700);
+    border-top-color: map-get(mat.$green-palette, A700);
+    border-right-color: map-get(mat.$green-palette, A700);
+    border-left-color: map-get(mat.$green-palette, A700);
   }
   .taskboard-task.task-status-info::after {
-    border-top-color: map-get($mat-light-blue, A700);
-    border-right-color: map-get($mat-light-blue, A700);
-    border-left-color: map-get($mat-light-blue, A700);
+    border-top-color: map-get(mat.$light-blue-palette, A700);
+    border-right-color: map-get(mat.$light-blue-palette, A700);
+    border-left-color: map-get(mat.$light-blue-palette, A700);
   }
   .taskboard-task.task-status-warning::after {
-    border-top-color: map-get($mat-yellow, A700);
-    border-right-color: map-get($mat-yellow, A700);
-    border-left-color: map-get($mat-yellow, A700);
+    border-top-color: map-get(mat.$yellow-palette, A700);
+    border-right-color: map-get(mat.$yellow-palette, A700);
+    border-left-color: map-get(mat.$yellow-palette, A700);
   }
   .taskboard-task.task-status-danger::after {
-    border-top-color: map-get($mat-red, A700);
-    border-right-color: map-get($mat-red, A700);
-    border-left-color: map-get($mat-red, A700);
+    border-top-color: map-get(mat.$red-palette, A700);
+    border-right-color: map-get(mat.$red-palette, A700);
+    border-left-color: map-get(mat.$red-palette, A700);
   }
   .taskboard-cards {
     padding: 0 ($spacer/2) ($spacer/2);

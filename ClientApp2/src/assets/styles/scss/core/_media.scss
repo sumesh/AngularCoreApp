@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 .media-grid {
   text-align: center;
   overflow: hidden;
@@ -31,10 +32,10 @@
     color: #fff;
     text-align: center;
     position: absolute;
-    border-top: 30px solid mat-color($warn);
+    border-top: 30px solid mat.get-color-from-palette($warn);
     border-bottom: 30px solid transparent;
     border-right: 30px solid transparent;
-    border-left: 30px solid mat-color($warn);
+    border-left: 30px solid mat.get-color-from-palette($warn);
     top: 0;
     left: 0;
     z-index: 100;

@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 /* $header
  ------------------------------------------*/
 
@@ -21,8 +22,8 @@ mat-toolbar {
     border-radius: 50%;
     width: 13px;
     height: 13px;
-    background-color: mat-color($warn);
-    border: 4px solid mat-color($warn);
+    background-color: mat.get-color-from-palette($warn);
+    border: 4px solid mat.get-color-from-palette($warn);
     color: white;
     text-align: center;
   }
@@ -76,7 +77,7 @@ mat-toolbar {
           top: 50%;
           left: 10px;
           margin-top: -12px;
-          color: rgba(mat-color($foreground, base), 0.87);
+          color: rgba(mat.get-color-from-palette($foreground, base), 0.87);
         }
       }
     }
@@ -84,7 +85,7 @@ mat-toolbar {
 }
 
 // Specific height for mobile devices in portrait mode.
-@media ($mat-xsmall) and (orientation: portrait) {
+@media (max-width: 599px) and (orientation: portrait) {
   mat-toolbar {
     &.main-header {
       .branding {

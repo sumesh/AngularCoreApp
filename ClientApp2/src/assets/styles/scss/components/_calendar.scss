@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -8,43 +9,43 @@
     .cal-hour-rows {
       border-top: 0;
       border-bottom: 0;
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-hour:nth-child(odd) {
-      background-color: mat-color($background, 'hover');
+      background-color: mat.get-color-from-palette($background, 'hover');
     }
 
     .cal-hour:not(:last-child) .cal-hour-segment,
     .cal-hour:last-child :not(:last-child) .cal-hour-segment {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-hour-segment:hover {
-      background-color: mat-color($background, 'hover');
+      background-color: mat.get-color-from-palette($background, 'hover');
     }
   }
 
   .cal-month-view {
     .cal-cell-row:hover {
-      background-color: mat-color($background, 'hover');
+      background-color: mat.get-color-from-palette($background, 'hover');
     }
 
     .cal-cell-row .cal-cell:hover,
     .cal-cell.cal-has-events.cal-open {
-      background-color: mat-color($background, 'hover');
+      background-color: mat.get-color-from-palette($background, 'hover');
     }
 
     .cal-days {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-day-cell:not(:last-child) {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-days .cal-cell-row {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-open-day-events {
@@ -54,15 +55,15 @@
 
   .cal-week-view {
     .cal-day-headers {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-day-headers .cal-header:not(:last-child) {
-      border-color: mat-color($foreground, divider);
+      border-color: mat.get-color-from-palette($foreground, divider);
     }
 
     .cal-day-headers .cal-header:hover {
-      background-color: mat-color($background, 'hover');
+      background-color: mat.get-color-from-palette($background, 'hover');
     }
 
     .cal-event.cal-starts-within-week {

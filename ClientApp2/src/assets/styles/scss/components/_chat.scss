@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -53,7 +54,7 @@
   width: 0;
   height: 0;
   content: '';
-  border: 5px solid mat-color($accent);
+  border: 5px solid mat.get-color-from-palette($accent);
   border-top-color: transparent;
   border-right-color: transparent;
   @include right(-7px);
@@ -69,7 +70,7 @@
   width: 0;
   height: 0;
   content: '';
-  border: 5px solid mat-color($background, card);
+  border: 5px solid mat.get-color-from-palette($background, card);
   border-bottom-color: transparent;
   @include left(-7px);
   @include border-left-color(transparent);
@@ -87,7 +88,7 @@
 }
 .chat-conversation-user.me .chat-conversation-message {
   position: relative;
-  background-color: mat-color($accent);
+  background-color: mat.get-color-from-palette($accent);
   @include float(right);
   p {
     color: white;
@@ -96,10 +97,10 @@
 
 .app-dark :host {
   .them .chat-conversation-message {
-    background: mat-color($dark-background, card);
+    background: mat.get-color-from-palette($dark-background, card);
   }
   .them .chat-conversation-message::after {
-    border: 5px solid mat-color($dark-background, card);
+    border: 5px solid mat.get-color-from-palette($dark-background, card);
     border-bottom-color: transparent;
     @include left(-7px);
     @include border-left-color(transparent);
@@ -120,9 +121,9 @@
   }
 
   .me .chat-conversation-message::after {
-    border: 5px solid mat-color($accent);
+    border: 5px solid mat.get-color-from-palette($accent);
     border-top-color: transparent;
-    border-right-color: mat-color($accent);
+    border-right-color: mat.get-color-from-palette($accent);
     border-left-color: transparent;
     @include right(auto);
     @include left(-7px);
@@ -134,7 +135,7 @@
   }
 
   .them .chat-conversation-message::after {
-    border: 5px solid mat-color($background, card);
+    border: 5px solid mat.get-color-from-palette($background, card);
     border-bottom-color: transparent;
     border-right-color: transparent;
     @include left(auto);

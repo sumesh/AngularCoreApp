@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -12,7 +13,7 @@
     width: 4px;
     height: 100%;
     content: '';
-    background: mat-color($background, card);
+    background: mat.get-color-from-palette($background, card);
     @include left(4px);
   }
   .timeline-icon {
@@ -84,7 +85,7 @@
     border-width: 9px;
     border-style: solid;
     @include right(100%);
-    @include border-color(transparent, mat-color($background, card), transparent, transparent);
+    @include border-color(transparent, mat.get-color-from-palette($background, card), transparent, transparent);
   }
 }
 
@@ -113,7 +114,7 @@
       position: absolute;
       @include right(auto);
       @include left(100%);
-      @include border-color(transparent, transparent, transparent, mat-color($background, card));
+      @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($background, card));
     }
     .timeline-card:nth-child(odd) .timeline-content .timeline-date {
       @include right(112%);
@@ -202,7 +203,7 @@
       .timeline-content > .mat-card::after {
         @include right(auto);
         @include left(100%);
-        @include border-color(transparent, transparent, transparent, mat-color($background, card));
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($background, card));
       }
     }
   }
@@ -253,7 +254,7 @@
       .timeline-content > .mat-card::after {
         @include right(auto!important);
         @include left(100%!important);
-        @include border-color(transparent, transparent, transparent, mat-color($background, card)!important);
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($background, card)!important);
       }
     }
   }
@@ -262,27 +263,27 @@
 .app-dark :host {
   .timeline {
     &::before {
-      background: mat-color($dark-background, card);
+      background: mat.get-color-from-palette($dark-background, card);
     }
     .timeline-icon {
       &::after {
-        background: mat-color($dark-background, card);
+        background: mat.get-color-from-palette($dark-background, card);
       }
     }
     .timeline-content > .mat-card::before {
-      @include border-color(transparent, mat-color($dark-background, card), transparent, transparent!important);
+      @include border-color(transparent, mat.get-color-from-palette($dark-background, card), transparent, transparent!important);
     }
     .timeline-content > .mat-card::after {
-      @include border-color(transparent, mat-color($dark-background, card), transparent, transparent!important);
+      @include border-color(transparent, mat.get-color-from-palette($dark-background, card), transparent, transparent!important);
     }
   }
   @include media-breakpoint-up(lg) {
     .timeline:not(.stacked) {
       .timeline-card:nth-child(even) .timeline-content > .mat-card::before {
-        @include border-color(transparent, transparent, transparent, mat-color($dark-background, card)!important);
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($dark-background, card)!important);
       }
       .timeline-card:nth-child(even) .timeline-content > .mat-card::after {
-        @include border-color(transparent, transparent, transparent, mat-color($dark-background, card)!important);
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($dark-background, card)!important);
       }
     }
   }
@@ -295,7 +296,7 @@
         @include border-color(transparent, transparent, transparent, rgba(150, 150, 150, .2)!important);
       }
       .timeline-content > .mat-card::after {
-        @include border-color(transparent, transparent, transparent, mat-color($dark-background, card)!important);
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($dark-background, card)!important);
       }
     }
   }
@@ -305,7 +306,7 @@
         @include border-color(transparent, transparent, transparent, rgba(150, 150, 150, .2)!important);
       }
       .timeline-content > .mat-card::after {
-        @include border-color(transparent, transparent, transparent, mat-color($dark-background, card)!important);
+        @include border-color(transparent, transparent, transparent, mat.get-color-from-palette($dark-background, card)!important);
       }
     }
   }

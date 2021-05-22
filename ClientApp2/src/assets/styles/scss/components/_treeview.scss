@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -48,15 +49,15 @@
     transform: rotate(0);
   }
   .node-content-wrapper:hover {
-    background: mat-color($background, 'hover');
+    background: mat.get-color-from-palette($background, 'hover');
     border-radius: $border-radius-large;
   }
   .tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper {
-    background: mat-color($background, 'hover');
+    background: mat.get-color-from-palette($background, 'hover');
     border-radius: $border-radius-large;
   }
   .tree-node-focused > .node-wrapper > .node-content-wrapper {
-    background: mat-color($background, 'hover');
+    background: mat.get-color-from-palette($background, 'hover');
   }
 }
 

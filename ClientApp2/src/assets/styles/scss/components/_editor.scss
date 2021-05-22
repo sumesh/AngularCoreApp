@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../material.variables";
 @import "../mixins/bi-app/bi-app-ltr";
 @import "../app.variables";
@@ -5,13 +6,13 @@
 
 .app-dark :host ::ng-deep {
   .ql-snow .ql-picker .ql-picker-label {
-    color: mat-color($dark-foreground, base);
+    color: mat.get-color-from-palette($dark-foreground, base);
   }
   .ql-snow .ql-stroke {
-    stroke: mat-color($dark-foreground, base);
+    stroke: mat.get-color-from-palette($dark-foreground, base);
   }
   .ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
-    fill: mat-color($dark-foreground, base);
+    fill: mat.get-color-from-palette($dark-foreground, base);
   }
 }
 

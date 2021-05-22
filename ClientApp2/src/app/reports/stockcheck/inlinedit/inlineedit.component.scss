@@ -1,7 +1,8 @@
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 
 :host {
-  @include mat-elevation(2);
+  @include mat.elevation(2);
   display: block;
   background: #f9f9f9;
   border-radius: 2px;
