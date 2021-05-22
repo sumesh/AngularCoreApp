@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit, ViewEncapsulation,ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef,MatPaginator, MatTableDataSource} from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 
 import { CustomValidators } from 'ng2-validation'; 
 import {FormBuilder, Validators, FormGroup,FormControl} from "@angular/forms";

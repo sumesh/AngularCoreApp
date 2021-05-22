@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatPaginator, MatTableDataSource } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { AlertService, InventoryService, LocalDataService } from '../../../_services/index';
 import { map, startWith } from 'rxjs/operators';
 import { CustomValidators } from 'ng2-validation';

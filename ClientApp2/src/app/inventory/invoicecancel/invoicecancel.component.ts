@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CustomValidators } from 'ng2-validation';
 import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { AlertService, InventoryService, LocalDataService } from '../../_services/index';

@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { MatPaginator, MatTableDataSource,MatOption } from "@angular/material";
+import { MatOption } from "@angular/material/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { AlertService, InventoryService, LocalDataService, ExcelService } from '../../_services/index';
 import { map, startWith } from 'rxjs/operators';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';

@@ -7,28 +7,25 @@ import { HttpClientModule,  HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SatPopoverModule } from '@ncstate/sat-popover';
-import {
-  MatSidenavModule,
-  MatCardModule,
-  MatMenuModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatTabsModule,
-  MatListModule,
-  MatSlideToggleModule,
-  MatSelectModule,
-  MatProgressBarModule,
-  MatSnackBar,
-  MatAutocompleteModule,
-  MatSnackBarModule,
-  MatDialogModule,
-  MatInputModule,
-  MatTableModule,  
-  MatPaginatorModule,
-  MatTooltipModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BidiModule } from '@angular/cdk/bidi';
 

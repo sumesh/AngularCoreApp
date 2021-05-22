@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { MatPaginator, MatTableDataSource } from "@angular/material";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { AlertService, InventoryService, LocalDataService, ExcelService } from '../../_services/index';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';

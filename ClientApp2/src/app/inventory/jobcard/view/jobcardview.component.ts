@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { DecimalPipe, DOCUMENT } from '@angular/common';
 import { AlertService, InventoryService, LocalDataService } from '../../../_services/index';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { PrintAuditComponent } from '../../printaudit/printaudit.component';
 import { InvoiceCancelComponent } from '../../invoicecancel/invoicecancel.component';
  

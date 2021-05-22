@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@ang
 import { CustomValidators } from 'ng2-validation';
 import { InvoiceModel, CustomerDetails, InvoiceNumeber, ItemModel, SaleMasterData, TaxCategory } from '../../../_model/index';
 import { AlertService, InventoryService, LocalDataService } from '../../../_services/index';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomerSearchComponent } from '../../customer/search/customersearch.component';
 import { InvoiceImportSearchComponent } from '../../importinvoice/search/invoiceimport.component';
 // const password = new FormControl('', Validators.required);

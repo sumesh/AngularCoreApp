@@ -3,24 +3,21 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {CdkTableModule} from '@angular/cdk/table';
 import { SatPopoverModule } from '@ncstate/sat-popover';
-import {
-  MatIconModule,
-  MatAutocompleteModule,
-  MatCardModule,
-  MatInputModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatTabsModule,
-  MatListModule,
-  MatNativeDateModule,
-  MatDatepickerModule,
-  DateAdapter,
-  MatSlideToggleModule,
-  MatSelectModule,
-  MatTooltipModule,
-  MatTableModule,
-  MatPaginatorModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
